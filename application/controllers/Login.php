@@ -8,9 +8,9 @@ class Login extends MY_Controller
 	{
 	    parent::__construct();	
 	    $id_pengguna	= $this->session->userdata('id_pengguna');
-	    $email 			= $this->session->userdata('email');
+	    $username 		= $this->session->userdata('username');
 	    $id_role		= $this->session->userdata('id_role');
-		if (isset($id_pengguna, $email, $id_role))
+		if (isset($id_pengguna, $username, $id_role))
 		{
 			switch ($id_role) 
 			{
@@ -32,29 +32,26 @@ class Login extends MY_Controller
 
   		if ($this->POST('login-submit'))
 		{
-			$this->load->model('pengguna_m');
-			if (!$this->pengguna_m->required_input(['email','password'])) 
-			{
-				$this->flashmsg('Data harus lengkap','warning');
-				redirect('login');
-				exit;
-			}
-			
-			$this->data = [
-    			'email'		=> $this->POST('email'),
-    			'password'	=> md5($this->POST('password'))
-			];
-
-			$result = $this->pengguna_m->login($this->data);
-			
-			if (!isset($result)) 
+			$this->load->model('Pengguna');
+			$pengguna = Pengguna::where('username', $this->POST('username'))
+							->where('password', md5($this->POST('password')))
+							->first();
+			if (!isset($pengguna)) 
 			{
 				$this->flashmsg('Email atau password salah','danger');
+			}
+			else
+			{
+				$this->session->set_flashdata([
+					'id_pengguna'	=> $pengguna->id_pengguna,
+					'username'		=> $pengguna->username,
+					'id_role'		=> $pengguna->id_role
+				]);
 			}
 			redirect('login');
 			exit;
 		}
-		$this->data['title'] 		= 'Login';
-		$this->load->view('login',$this->data);
+		$this->data['title']  = 'Login';
+		$this->load->view('login', $this->data);
 	}
 }

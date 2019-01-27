@@ -6,6 +6,14 @@ class Kades extends MY_Controller
 	{
 		parent::__construct();
 		$this->module = 'kades';
+    $this->data['id_role']  = $this->session->userdata('id_role');
+    if (!isset($this->data['id_role']) or $this->data['id_role'] != 2)
+    {
+      $this->session->sess_destroy();
+      redirect('login');
+    }
+    $this->data['id_pengguna']  = $this->session->userdata('id_pengguna');
+    $this->data['username']     = $this->session->userdata('username');
 	}
 
 	public function index(){
