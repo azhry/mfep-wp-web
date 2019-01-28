@@ -51,13 +51,35 @@
 							</div>
 							<table class="table table-striped table-bordered table-hover">
 							<thead>
-							<tr>
-								
-							</tr>
+							<th>
+								Rangking
+							</th>
+							<?php 
+							   $no = '';
+                               if(isset($mfep)){
+                                 $no = count($mfep);
+                               	 echo "<th> MFEP </th>";
+                               }
+                               if(isset($wp)){
+                               	if(empty($no)){
+                               	    $no = count($wp);
+                               	}
+                               	echo "<th> WP </th>";
+                               }
+							?>
 							</thead>
 							<tbody>
-							   
-							  
+							   <?php 
+                                   for ($i=0; $i < $no; $i++) { 
+                                 ?>
+                                    <tr>
+                                    	<td><?= ($i+1); ?></td>
+                                    	<?php if(isset($mfep)){ echo "<td>".$mfep[$i]["nama"]."</td>"; }?>
+                                    	<?php if(isset($wp)){ echo "<td>".$wp[$i]["nama"]."</td>"; }?>
+                                    </tr>
+                                 <?php 
+                                   }
+							   ?>
 							</tbody>
 							</table>
 						</div>

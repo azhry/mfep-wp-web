@@ -19,10 +19,10 @@
 						<input type="number" name="bobot_k" class="form-control">
 					</div>
 					<div class="form-group">
-						<label for="nama_k">Tipe Kriteria</label>
-                        <select name="tipe" class="form-control">
-                        	<option value="kategori">Kategori</option>
-                        	<option value="range">Range Nilai</option>
+						<label for="nama_k">Benefit/Cost</label>
+                        <select name="kondisi" class="form-control">
+                        	<option value="Cost(-)">Cost(-)</option>
+                        	<option value="Benefit(+)">Benefit(+)</option>
                         </select>
 					</div>
 					<div class="form-group">

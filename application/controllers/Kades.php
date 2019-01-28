@@ -89,6 +89,7 @@ class Kades extends MY_Controller
 		   $this->load->model('Kriteria');
            $kriteria = Kriteria::find($id);
            $kriteria->nama_kriteria = $this->input->post("nama_k_baru");
+           $kriteria->kondisi = $this->input->post("kondisi_k_baru");
            $kriteria->bobot_kriteria = $this->input->post("bobot_k_baru");
            $kriteria->save();
            $this->flashmsg('Data updated');
@@ -107,7 +108,7 @@ class Kades extends MY_Controller
            $kriteria = new Kriteria();
            $kriteria->nama_kriteria = $this->POST('nama_k');
            $kriteria->bobot_kriteria = $this->POST('bobot_k');
-           $kriteria->tipe = $this->POST('tipe');
+           $kriteria->kondisi = $this->POST('kondisi');
            $res = $kriteria->save();
            
            $this->flashmsg('New data added');
@@ -154,15 +155,15 @@ class Kades extends MY_Controller
           	$this->load->model('Datacalon');
             $kriteria = Kriteria::get();
             foreach ($kriteria as $value) {
-            	if(empty($this->input->post("id_".$value["nama_kriteria"]))){
+            	if(empty($this->input->post("id_".str_replace(' ','_',$value["nama_kriteria"])))){
                    $data_calon = new Datacalon();
                    $data_calon->id_calon = $id_calon;
-                   $data_calon->id_kriteria = $this->input->post('id_kriteria_'.$value['nama_kriteria']);
-                   $data_calon->id_faktor = $this->input->post("faktor_".$value['nama_kriteria']);
+                   $data_calon->id_kriteria = $this->input->post('id_kriteria_'.str_replace(' ','_',$value["nama_kriteria"]) );
+                   $data_calon->id_faktor = $this->input->post("faktor_".str_replace(' ','_',$value["nama_kriteria"]) );
                    $data_calon->save();
             	}else{
-                   $data_calon=Datacalon::find($this->input->post("id_".$value["nama_kriteria"]));
-            	   $data_calon->id_faktor = $this->input->post("faktor_".$value['nama_kriteria']);
+                   $data_calon=Datacalon::find($this->input->post("id_".str_replace(' ','_',$value["nama_kriteria"]) ));
+            	   $data_calon->id_faktor = $this->input->post("faktor_".str_replace(' ','_',$value["nama_kriteria"]) );
             	   $data_calon->save();
             	}
             }
@@ -194,13 +195,14 @@ class Kades extends MY_Controller
              $calon->save();
              $id_calon = $calon->selectRaw('MAX(id_calon) as id_calon')->get()[0]['id_calon'];
              if(isset($id_calon)){
-             	$this->load->model('Datacalon');
                  foreach ($this->data['kriteria'] as $value) {
+                  $this->load->model('Datacalon');
                  	$data_calon = new Datacalon();
                  	$data_calon->id_calon = $id_calon;
-                 	$data_calon->id_kriteria = $this->input->post("id_".$value['nama_kriteria']);
-                 	$data_calon->id_faktor = $this->input->post("faktor_".$value['nama_kriteria']);
+                 	$data_calon->id_kriteria = $this->input->post("id_".str_replace(' ','_',$value["nama_kriteria"]) );
+                 	$data_calon->id_faktor = $this->input->post("faktor_".str_replace(' ','_',$value["nama_kriteria"]) );
                  	$data_calon->save();
+                  
                  }
               $this->flashmsg('Data added');
               redirect('kades/data_calon_penerima_bantuan');
@@ -214,30 +216,16 @@ class Kades extends MY_Controller
 	public function perangkingan(){
 	   if($this->input->post('perangkingan')){
           $this->load->model('Datacalon');
-	   	  $data_calon = new Datacalon();
-	   	  $data = $data_calon->get_data_calon();
-          
-          // CARA AKSES DATA
-          foreach ($data as $value) {
-          	echo "Nama : ".$value['nama']."<br>";
-            for ($i=0; $i < sizeof($value["kriteria"]["nama"]); $i++) { 
-            	echo "<b>Nama Kriteria  </b>: ".$value["kriteria"]["nama"][$i]." ";
-            	echo " <b>Bobot Kriteria </b>: ".$value["kriteria"]["bobot"][$i]."<br>";
-            	echo "<i>Nama Faktor    </i>: ".$value["faktor"]["nama"][$i]." ";
-            	echo "<i>  Bobot Faktor   </i>: ".$value["faktor"]["bobot"][$i]."<br>";
-            }
-            echo "<br>";
-
-          }
-          // CARA AKSES DATA
-
+	   	    $data_calon = new Datacalon();
+	   	    $data = $data_calon->get_data_calon();
           if($this->input->post('mfep')){
-            echo "mfep here";   
+             $this->load->library("MFEP");
+             $mfep = $this->mfep;
+             $this->data["mfep"] = $mfep->do_mfep($data);
           }
           if($this->input->post('wp')){
-            echo "wp here";
+          
           }
-          exit();
 	   }
 	   $this->data['title']	= 'Perangkingan';
 	   $this->data['content']	= 'perangkingan';

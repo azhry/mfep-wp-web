@@ -15,6 +15,13 @@
 						<input type="text" name="nama_k_baru" class="form-control" value="<?= $kriteria['nama_kriteria']?>">
 					</div>
 					<div class="form-group">
+						<label for="bobot_k">Benefit/Cost</label>
+						<select name="kondisi_k_baru" class="form-control">
+							<option value="Cost(-)" <?php if($kriteria["kondisi"] == "Cost(-)"){echo "selected";} ?>>Cost(-)</option>
+							<option value="Benefit(+)" <?php if($kriteria["kondisi"] == "Benefit(+)"){echo "selected";} ?>>Benefit(+)</option>
+						</select>
+					</div>
+					<div class="form-group">
 						<label for="bobot_k">Bobot</label>
 						<input type="number" name="bobot_k_baru" value="<?= $kriteria['bobot_kriteria']?>" class="form-control">
 					</div>

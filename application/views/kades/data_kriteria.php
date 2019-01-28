@@ -41,7 +41,7 @@
 									 Kriteria
 								</th>
 								<th>
-									 Tipe
+									Benefit/Cost
 								</th>
 								<th>
 									 Bobot
@@ -62,7 +62,7 @@
 									<?= $value["nama_kriteria"] ?>
 								</td>
 								<td>
-									<?= $value["tipe"] ?> 
+									<?= $value['kondisi'] ?>
 								</td>
 								<td>
 									<?= $value["bobot_kriteria"] ?>

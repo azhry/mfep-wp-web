@@ -23,8 +23,8 @@
                      ?>
 					<div class="form-group">
 						<label for="nama_k"><?= $value["nama_kriteria"]; ?></label>
-						<input type="hidden" name="id_<?= $value["nama_kriteria"]; ?>" value="<?= $value["id_kriteria"]; ?>" >
-                        <select name="faktor_<?= $value["nama_kriteria"]; ?>" class="form-control">
+						<input type="hidden" name="id_<?= str_replace(' ','_',$value["nama_kriteria"]) ?>" value="<?= $value["id_kriteria"]; ?>" >
+                        <select name="faktor_<?= str_replace(' ','_',$value["nama_kriteria"]) ?>" class="form-control">
                             <?php 
                                 foreach ($faktor as $value_f) {
                                 	if($value_f['id_kriteria'] == $value['id_kriteria']){

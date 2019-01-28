@@ -30,9 +30,9 @@
                               $id_data_calon = $calon[0]['id_data_calon'][$i]; 
                             }
 						?>
-						<input type="hidden" name="id_<?= $value["nama_kriteria"]; ?>" value="<?= $id_data_calon ?>" >
-						<input type="hidden" name="id_kriteria_<?= $value["nama_kriteria"]; ?>" value="<?= $value['id_kriteria'] ?>" >
-                        <select name="faktor_<?= $value["nama_kriteria"]; ?>" class="form-control">
+						<input type="hidden" name="id_<?= str_replace(' ','_',$value["nama_kriteria"]) ?>" value="<?= $id_data_calon ?>" >
+						<input type="hidden" name="id_kriteria_<?= str_replace(' ','_',$value["nama_kriteria"]) ?>" value="<?= $value['id_kriteria'] ?>" >
+                        <select name="faktor_<?= str_replace(' ','_',$value["nama_kriteria"]) ?>" class="form-control">
                             <?php 
                                 foreach ($faktor as $value_f) {
                                 	$res = "";

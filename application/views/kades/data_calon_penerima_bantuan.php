@@ -69,7 +69,7 @@
 								 <td>
 								 	<?= form_open("kades/data_calon_penerima_bantuan") ?>
 								 	  <input type="hidden" name="id_calon" value="<?= $value['id_calon'] ?>">
-								 	  <input type="submit" name="ubah" value="ubah" class="btn btn-primary">
+								 	  <input type="submit" style="    width: 68px;" name="ubah" value="ubah" class="btn btn-primary">
 								 	  <input type="submit" name="hapus" value="hapus" class="btn btn-danger">
 								 	<?= form_close() ?>
 								 </td>
