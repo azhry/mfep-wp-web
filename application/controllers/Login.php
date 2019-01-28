@@ -29,7 +29,6 @@ class Login extends MY_Controller
 
   	public function index()
   	{
-
   		if ($this->POST('login-submit'))
 		{
 			$this->load->model('Pengguna');
@@ -42,14 +41,12 @@ class Login extends MY_Controller
 			}
 			else
 			{
-				$this->session->set_flashdata([
-					'id_pengguna'	=> $pengguna->id_pengguna,
-					'username'		=> $pengguna->username,
-					'id_role'		=> $pengguna->id_role
-				]);
+				$_SESSION['id_pengguna']	= $pengguna->id_pengguna;
+				$_SESSION['username']		= $pengguna->username;
+				$_SESSION['id_role']		= $pengguna->id_role;
 			}
+
 			redirect('login');
-			exit;
 		}
 		$this->data['title']  = 'Login';
 		$this->load->view('login', $this->data);
