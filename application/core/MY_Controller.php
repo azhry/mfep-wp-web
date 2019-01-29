@@ -7,6 +7,9 @@ class MY_Controller extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		ini_set('xdebug.var_display_max_depth', '100');
+		ini_set('xdebug.var_display_max_children', '2560');
+		ini_set('xdebug.var_display_max_data', '102400');
 		date_default_timezone_set("Asia/Jakarta");
 		$this->data['global_title']	= $this->title;
 	}

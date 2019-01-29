@@ -23,6 +23,53 @@ class Admin extends MY_Controller
 		$this->template($this->data, $this->module);
 	}
 
+	public function data_calon_penerima_bantuan2()
+	{
+		$this->load->model('Calon');
+		$this->load->model('Datacalon');
+		$this->load->model('Kriteria');
+
+		$this->data['kriteria']	= Kriteria::with('faktor')
+									->get();
+
+		if ($this->POST('tambah'))
+		{
+			$calon = new Calon();
+			$calon->Nama = $this->POST('nama');
+			$calon->save();
+
+			$datacalon = [];
+			foreach ($this->data['kriteria'] as $kriteria)
+			{
+				$name = str_replace(' ', '_', strtolower($kriteria->nama_kriteria));
+				$datacalon []= [
+					'id_calon'		=> $calon->id_calon,
+					'id_kriteria'	=> $kriteria->id_kriteria,
+					'id_faktor'		=> $this->POST($name)
+				];
+			}
+
+			Datacalon::insert($datacalon);
+			$this->flashmsg('New data added');
+			redirect('admin/data-calon-penerima-bantuan2');
+		}
+
+		if ($this->POST('hapus'))
+		{
+			$calon = Calon::find($this->uri->segment(3));
+			$calon->delete();
+			$this->flashmsg('Data deleted');
+			redirect('admin/data-calon-penerima-bantuan2');
+		}
+
+		$this->data['calon']	= Calon::with('datacalon', 'datacalon.kriteria', 'datacalon.faktor')
+									->get();
+
+		$this->data['title']	= 'Data Calon Penerima Bantuan';
+		$this->data['content']	= 'data_calon_penerima_bantuan2';
+		$this->template($this->data, $this->module);
+	}
+
 	public function data_calon_penerima_bantuan()
 	{
 		if ($this->POST('import'))

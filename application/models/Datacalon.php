@@ -7,6 +7,19 @@ class Datacalon extends Eloquent
 {
 	protected $table		= 'data_calon';
 	protected $primaryKey	= 'id_data_calon';
+  protected $fillable = ['id_calon', 'id_kriteria', 'id_faktor'];
+
+  public function kriteria()
+  {
+    require_once __DIR__ . '/Kriteria.php';
+    return $this->hasOne('Kriteria', 'id_kriteria', 'id_kriteria');
+  }
+
+  public function faktor()
+  {
+    require_once __DIR__ . '/Faktor.php';
+    return $this->hasOne('Faktor', 'Id_faktor', 'id_faktor');
+  }
 
 	public function get_data_calon(){
 		$res = $this->query_data_calon()->get();

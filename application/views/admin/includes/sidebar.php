@@ -18,7 +18,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?= base_url('admin/data-calon-penerima-bantuan') ?>">
+                    <a href="<?= base_url('admin/data-calon-penerima-bantuan2') ?>">
                         <i class="fa fa-list"></i> 
                         <span class="title">Data</span>
                     </a>

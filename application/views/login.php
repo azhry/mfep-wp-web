@@ -54,8 +54,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN LOGO -->
     <div class="logo">
         <a href="#">
-            <h3>Sistem Informasi Penentu Calon Penerima Bantuan Sosial</h3>
-            <h4>Desa Konohagakure, Sumatera Selatan</h4>
+            <h3>Sistem Pendukung Keputusan Penentu Calon Penerima Bantuan Sosial Beras Sejahtera (Bansos Rastra)</h3>
+            <h4>Desa Tanjung Muning, Sumatera Selatan</h4>
         </a>
     </div>
     <!-- END LOGO -->
