@@ -24,6 +24,9 @@
 					<div class="form-group">
 						<label for="nama_k"><?= $value["nama_kriteria"]; ?></label>
 						<input type="hidden" name="id_<?= str_replace(' ','_',$value["nama_kriteria"]) ?>" value="<?= $value["id_kriteria"]; ?>" >
+						<?php if ($value['nama_kriteria'] == 'Penghasilan' or $value['nama_kriteria'] == 'Jumlah Tanggungan'): ?>
+						<input type="number" name="faktor_<?= str_replace(' ','_',$value["nama_kriteria"]) ?>" class="form-control">
+						<?php else: ?>
                         <select name="faktor_<?= str_replace(' ','_',$value["nama_kriteria"]) ?>" class="form-control">
                             <?php 
                                 foreach ($faktor as $value_f) {
@@ -33,6 +36,7 @@
                                 }
                             ?>
                         </select>
+                    	<?php endif; ?>
 					</div>
 				<?php } ?>
 					<div class="form-group">

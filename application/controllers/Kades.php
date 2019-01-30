@@ -43,7 +43,7 @@ class Kades extends MY_Controller
            $id = $this->input->post("id");
            $this->faktor_kriteria($id);
 		}else{
-           $this->data['kriteria'] = $kriteria::get();
+           $this->data['kriteria'] = $kriteria::orderBy('bobot_kriteria', 'DESC')->get();
            $this->data['title']	= 'Kriteria';
 	       $this->data['content']	= 'data_kriteria';
 	       $this->template($this->data, $this->module);
@@ -201,6 +201,52 @@ class Kades extends MY_Controller
                  	$data_calon->id_calon = $id_calon;
                  	$data_calon->id_kriteria = $this->input->post("id_".str_replace(' ','_',$value["nama_kriteria"]) );
                  	$data_calon->id_faktor = $this->input->post("faktor_".str_replace(' ','_',$value["nama_kriteria"]) );
+                  if ($value["nama_kriteria"] == 'Penghasilan')
+                  {
+                    if ($data_calon->id_faktor > 1500000)
+                    {
+                      $data_calon->id_faktor = 31;
+                    }
+                    else if ($data_calon->id_faktor >= 1300001 && $data_calon->id_faktor <= 1500000)
+                    {
+                      $data_calon->id_faktor = 32;
+                    }
+                    else if ($data_calon->id_faktor >= 800000 && $data_calon->id_faktor <= 1300000)
+                    {
+                      $data_calon->id_faktor = 33;
+                    }
+                    else if ($data_calon->id_faktor >= 300000 && $data_calon->id_faktor <= 800000)
+                    {
+                      $data_calon->id_faktor = 34;
+                    }
+                    else if ($data_calon->id_faktor < 300000)
+                    {
+                      $data_calon->id_faktor = 35;
+                    }
+                  }
+                  if ($value["nama_kriteria"] == 'Jumlah Tanggungan')
+                  {
+                    if ($data_calon->id_faktor == 1)
+                    {
+                      $data_calon->id_faktor = 38;
+                    }
+                    else if ($data_calon->id_faktor > 1 && $data_calon->id_faktor <= 2)
+                    {
+                      $data_calon->id_faktor = 37;
+                    }
+                    else if ($data_calon->id_faktor >= 3 && $data_calon->id_faktor <= 5)
+                    {
+                      $data_calon->id_faktor = 36;
+                    }
+                    else if ($data_calon->id_faktor >= 6 && $data_calon->id_faktor <= 8)
+                    {
+                      $data_calon->id_faktor = 30;
+                    }
+                    else if ($data_calon->id_faktor > 8)
+                    {
+                      $data_calon->id_faktor = 29;
+                    }
+                  }
                  	$data_calon->save();
                   
                  }

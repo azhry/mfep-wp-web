@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 29 Jan 2019 pada 00.04
--- Versi Server: 10.1.13-MariaDB
--- PHP Version: 5.6.23
+-- Generation Time: 30 Jan 2019 pada 04.01
+-- Versi Server: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -186,7 +188,10 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id_pengguna`, `id_role`, `username`, `password`, `nama`, `email`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `created_at`, `updated_at`) VALUES
-(1, 2, 'jack', '827ccb0eea8a706c4c34a16891f84e7b', 'Jacka Sembunk', 'jack@gmail.com', 'Palmeiras', '2019-01-09', 'Jln. Jalan jauh-jau, no.01', '2019-01-19 12:47:36', '2019-01-19 12:47:36');
+(1, 2, 'jack', '827ccb0eea8a706c4c34a16891f84e7b', 'Jacka Sembunk', 'jack@gmail.com', 'Palmeiras', '2019-01-09', 'Jln. Jalan jauh-jau, no.01', '2019-01-19 12:47:36', '2019-01-19 12:47:36'),
+(2, 1, 'azhry', '985fabf8f96dc1c4c306341031569937', 'Azhary Arliansyah', 'arliansyah_azhary@yahoo.com', 'Palembang', '1996-08-05', '', '2019-01-29 11:04:42', '2019-01-29 11:04:42'),
+(3, 1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 'Admin', 'admin@admin.com', 'admin', '2019-01-02', 'admin', '2019-01-29 13:51:48', '2019-01-29 13:51:48'),
+(4, 2, 'kades', '01cfcd4f6b8770febfb40cb906715822', 'Kades', 'kades@kades.com', 'kades', '2019-01-01', 'kades', '2019-01-29 13:51:48', '2019-01-29 13:51:48');
 
 -- --------------------------------------------------------
 
@@ -279,7 +284,8 @@ INSERT INTO `warga` (`id`, `nama`, `pekerjaan`, `penghasilan`, `jumlah_tanggunga
 (43, 'Beben ta cesha ', 'Buruh', 700000, 2, 'Papan', 'Menumpang', 'Menumpang (tanpa subsidi)', 'Panggung', '2019-01-17 11:10:41', '2019-01-17 11:10:41'),
 (44, 'Ayopin jansens', 'Buruh', 800000, 2, 'Papan', 'Menumpang', 'Menumpang (tanpa subsidi)', 'Panggung', '2019-01-17 11:10:41', '2019-01-17 11:10:41'),
 (45, 'Taklano', 'Buruh', 500000, 1, 'Papan', 'Menumpang', 'Menumpang (tanpa subsidi)', 'Panggung', '2019-01-17 11:10:41', '2019-01-17 11:10:41'),
-(46, 'Azhary Arliansyah', 'Programmer', 5000000, 0, 'Papan', 'Milik sendiri', 'Milik sendiri (tanpa subsidi)', 'Panggung', '2019-01-17 12:00:19', '2019-01-17 12:00:19');
+(46, 'Azhary Arliansyah', 'Programmer', 5000000, 0, 'Papan', 'Milik sendiri', 'Milik sendiri (tanpa subsidi)', 'Panggung', '2019-01-17 12:00:19', '2019-01-17 12:00:19'),
+(47, 'Azhary Arliansyah', '16', 32, 36, '21', '42', '43', '46', '2019-01-29 13:48:08', '2019-01-29 13:48:08');
 
 --
 -- Indexes for dumped tables
@@ -342,36 +348,43 @@ ALTER TABLE `warga`
 --
 ALTER TABLE `calon`
   MODIFY `id_calon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
 --
 -- AUTO_INCREMENT for table `data_calon`
 --
 ALTER TABLE `data_calon`
   MODIFY `id_data_calon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
 --
 -- AUTO_INCREMENT for table `faktor`
 --
 ALTER TABLE `faktor`
   MODIFY `Id_faktor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
   MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
   MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `warga`
 --
 ALTER TABLE `warga`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
@@ -395,6 +408,7 @@ ALTER TABLE `faktor`
 --
 ALTER TABLE `pengguna`
   ADD CONSTRAINT `pengguna_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
