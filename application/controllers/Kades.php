@@ -270,7 +270,9 @@ class Kades extends MY_Controller
              $this->data["mfep"] = $mfep->do_mfep($data);
           }
           if($this->input->post('wp')){
-          
+            $this->load->library('WeightedProduct');
+            $wp = $this->weightedproduct;
+            $this->data['wp'] = $wp->do_wp($data);
           }
 	   }
 	   $this->data['title']	= 'Perangkingan';
