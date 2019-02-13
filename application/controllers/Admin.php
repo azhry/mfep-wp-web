@@ -164,4 +164,98 @@ class Admin extends MY_Controller
 		$this->data['content']	= 'data_calon_penerima_bantuan';
 		$this->template($this->data, $this->module);
 	}
+
+	public function data_kriteria(){
+		$this->load->model('Kriteria');
+		$kriteria = new Kriteria();
+		if($this->input->post("hapus")){
+		   $id = $this->input->post("id");
+           $warga = Kriteria::find($id);
+		   $warga->delete();
+		   $this->flashmsg('Data deleted');
+           redirect('admin/data_kriteria');
+		}else if($this->input->post("ubah")){
+		   $id = $this->input->post("id");
+           $this->update_kriteria($id);
+		}else if($this->input->post("faktor")){
+           $id = $this->input->post("id");
+           $this->faktor_kriteria($id);
+		}else{
+           $this->data['kriteria'] = $kriteria::orderBy('bobot_kriteria', 'DESC')->get();
+           $this->data['title']	= 'Kriteria';
+	       $this->data['content']	= 'data_kriteria';
+	       $this->template($this->data, $this->module);
+		}
+	}
+
+	public function faktor_kriteria($id_kriteria){
+	   $this->load->model('Faktor');
+	   $this->load->model('Kriteria');
+	   if($this->input->post("tambah")){
+            $faktor              = new Faktor();
+            $faktor->nama_faktor = $this->input->post("nama_f");
+            $faktor->bobot_faktor      = $this->input->post("bobot_f");
+            $faktor->id_kriteria = $id_kriteria;
+            $faktor->save();
+            $this->flashmsg('Data added');
+            redirect('admin/faktor_kriteria/'.$id_kriteria);
+	    }
+	    else if($this->input->post("perbarui")){
+	    	$data  = [
+               "nama_faktor" => $this->input->post('ubah_nama_f'),
+               "bobot_faktor"       => $this->input->post('ubah_bobot_f')
+	    	];
+            Faktor::where('Id_faktor',$this->input->post('id_faktor'))->update($data);
+            $this->flashmsg('Data updated');
+            redirect('admin/faktor_kriteria/'.$id_kriteria);
+	    }else if($this->input->post("hapus")){
+            $id = $this->input->post("id_faktor");
+            $faktor = Faktor::find($id);
+            $faktor->delete();
+            $this->flashmsg('Data deleted');
+			redirect('admin/faktor_kriteria/'.$id_kriteria);
+	    } 
+	   $this->data['kriteria'] = Kriteria::find($id_kriteria);
+	   $this->data['faktor'] = Faktor::select("*")->where("id_kriteria",$id_kriteria)->get();
+       $this->data['title']	= 'Faktor Kriteria';
+	   $this->data['content']	= 'faktor_kriteria';
+	   $this->template($this->data, $this->module);
+	}
+
+	public function update_kriteria($id){
+		if($this->input->post("perbarui")){
+		   $this->load->model('Kriteria');
+           $kriteria = Kriteria::find($id);
+           $kriteria->nama_kriteria = $this->input->post("nama_k_baru");
+           $kriteria->kondisi = $this->input->post("kondisi_k_baru");
+           $kriteria->bobot_kriteria = $this->input->post("bobot_k_baru");
+           $kriteria->save();
+           $this->flashmsg('Data updated');
+           redirect('admin/data_kriteria');
+		}
+        $this->data["kriteria"] = Kriteria::find($id);
+        $this->data['title']	= 'Perbarui Kriteria';
+	    $this->data['content']	= 'update_kriteria';
+	    $this->template($this->data, $this->module);
+	}
+
+
+	public function tambah_kriteria(){
+		if($this->input->post("tambah")){
+		   $this->load->model('Kriteria');
+           $kriteria = new Kriteria();
+           $kriteria->nama_kriteria = $this->POST('nama_k');
+           $kriteria->bobot_kriteria = $this->POST('bobot_k');
+           $kriteria->kondisi = $this->POST('kondisi');
+           $res = $kriteria->save();
+           
+           $this->flashmsg('New data added');
+		   redirect('admin/data_kriteria');
+		}
+        $this->data['title']	= 'Tambah Kriteria';
+	    $this->data['content']	= 'tambah_kriteria';
+	    $this->template($this->data, $this->module);  
+	}
+
+	
 }

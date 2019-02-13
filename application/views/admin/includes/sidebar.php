@@ -17,7 +17,13 @@
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
-                <li>
+                 <li>
+                    <a href="<?= base_url('admin/data-kriteria') ?>">
+                        <i class="fa fa-cubes"></i> 
+                        <span class="title">Kriteria</span>
+                    </a>
+                </li>
+                  <li>
                     <a href="<?= base_url('admin/data-calon-penerima-bantuan2') ?>">
                         <i class="fa fa-list"></i> 
                         <span class="title">Data</span>

@@ -6,7 +6,7 @@
                     <div class="portlet box blue-hoki">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-globe"></i>Datatable with TableTools
+								<i class="fa fa-globe"></i>Sistem Pendukung Keputusan
 							</div>
 							<div class="tools">
 							</div>

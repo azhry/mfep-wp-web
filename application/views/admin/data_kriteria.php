@@ -22,18 +22,18 @@
 							</div>
 						</div>
 						<div class="portlet-body">
-							<!-- <div class="table-toolbar">
+							<div class="table-toolbar">
 								<div class="row">
 									<div class="col-md-5">
 										<div class="btn-group">
-				                             <a href="<?= base_url()?>kades/tambah-kriteria">
+				                             <a href="<?= base_url()?>admin/tambah-kriteria">
 											<button id="sample_editable_1_new" class="btn green">
 											Add New <i class="fa fa-plus"></i>
 											</button></a>
 										</div>
 									</div>
 								</div>
-							</div> -->
+							</div>
 							<table class="table table-striped table-bordered table-hover">
 							<thead>
 							<tr>
@@ -68,9 +68,9 @@
 									<?= $value["bobot_kriteria"] ?>
 								</td>
 								<td>
-									<?= form_open("kades/data-kriteria")?>
-									<!--   <input type="submit" class="btn btn-danger" name="hapus" value="hapus">
-									  <input type="submit" class="btn btn-primary" name="ubah" value="Ubah"> -->
+									<?= form_open("admin/data-kriteria")?>
+									  <input type="submit" class="btn btn-danger" name="hapus" value="hapus">
+									  <input type="submit" class="btn btn-primary" name="ubah" value="Ubah">
 									  <input type="submit" class="btn btn-warning" name="faktor" value="Faktor">
 									  <input type="hidden" name="id" value="<?= $value['id_kriteria']?>">
 									<?= form_close();?>

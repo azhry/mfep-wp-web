@@ -22,7 +22,7 @@
 							</div>
 						</div>
 						<div class="portlet-body">
-							<!-- <div class="table-toolbar">
+							<div class="table-toolbar">
 								<div class="row">
 									<div class="col-md-5">
 										<div class="btn-group">
@@ -32,7 +32,7 @@
 										</div>
 									</div>
 								</div>
-							</div> -->
+							</div>
 							<table class="table table-striped table-bordered table-hover" id="sample_2">
 							<thead>
 							<tr>
@@ -45,9 +45,9 @@
 								<th>
 									 Bobot
 								</th>
-								<!-- <th>
+								<th>
 									 Aksi
-								</th> -->
+								</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -65,14 +65,14 @@
 								<td id="bobot-faktor">
 								  <?= $value['bobot_faktor']; ?>
 								</td>
-							<!-- 	<td>
-									<?= form_open("kades/faktor_kriteria/".$kriteria['id_kriteria']) ?>
+								<td>
+									<?= form_open("admin/faktor_kriteria/".$kriteria['id_kriteria']) ?>
 									  <input type="hidden" name="id_faktor" id="id_faktor" value="<?= $value['Id_faktor']?>">
 									  <input type="submit" class="btn btn-danger" name="hapus" value="hapus">
 									  <input type="button" class="btn btn-primary" name="" id="ubah" 
 									  value="Ubah">
 									 <?= form_close() ?>
-								</td> -->
+								</td>
 							</tr>
 						     <?php $i++; } ?>
                            </tbody>
@@ -93,7 +93,7 @@
 					<div class="caption">Tambah Faktor</div>
 				</div>
 				<div class="portlet-body">
-					<?= form_open('kades/faktor_kriteria/'.$kriteria['id_kriteria']) ?>
+					<?= form_open('admin/faktor_kriteria/'.$kriteria['id_kriteria']) ?>
 					<div class="form-group">
 						<label for="nama_k">Nama Faktor</label>
 						<input type="text" name="nama_f" class="form-control" required="">
@@ -121,7 +121,7 @@
 					<div class="caption">Perbarui Faktor</div>
 				</div>
 				<div class="portlet-body">
-					<?= form_open('kades/faktor_kriteria/'.$kriteria['id_kriteria']) ?>
+					<?= form_open('admin/faktor_kriteria/'.$kriteria['id_kriteria']) ?>
 					<div class="form-group">
 						<label for="nama_k">Nama Faktor</label>
 						<input type="text" name="ubah_nama_f" id="ubah_nama_f" class="form-control" required="">

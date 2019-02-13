@@ -22,7 +22,7 @@
 							</div>
 						</div>
 						<div class="portlet-body">
-							<div class="table-toolbar">
+							<!-- <div class="table-toolbar">
 								<div class="row">
 									<div class="col-md-5">
 										<div class="btn-group">
@@ -33,7 +33,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<table class="table table-striped table-bordered table-hover" id="sample_2">
 							<thead>
 							<tr>
@@ -43,7 +43,7 @@
 								 ?>
 								 <th><?= $value['nama_kriteria']; ?></th>
 								<?php } ?>
-								<th>Aksi</th>
+								<!-- <th>Aksi</th> -->
 							</tr>
 							</thead>
 							<tbody>
@@ -66,13 +66,13 @@
                                     	echo "<td>".$res."</td>";
                                     }
 								 ?>
-								 <td>
+							<!-- 	 <td>
 								 	<?= form_open("kades/data_calon_penerima_bantuan") ?>
 								 	  <input type="hidden" name="id_calon" value="<?= $value['id_calon'] ?>">
 								 	  <input type="submit" style="    width: 68px;" name="ubah" value="ubah" class="btn btn-primary">
 								 	  <input type="submit" name="hapus" value="hapus" class="btn btn-danger">
 								 	<?= form_close() ?>
-								 </td>
+								 </td> -->
 							</tr>
 							<?php } ?>				
                            </tbody>
