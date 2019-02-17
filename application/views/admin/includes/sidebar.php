@@ -29,6 +29,12 @@
                         <span class="title">Data</span>
                     </a>
                 </li>
+                 <li>
+                    <a href="<?= base_url('admin/perangkingan') ?>">
+                        <i class="fa fa-sort-amount-asc"></i> 
+                        <span class="title">Perangkingan</span>
+                    </a>
+                </li>
             </ul>
             <!-- END SIDEBAR MENU -->
         </div>
