@@ -46,9 +46,9 @@
 								<th>
 									 Bobot
 								</th>
-								<th>
+								<!-- <th>
 									 Aksi
-								</th>
+								</th> -->
 							</tr>
 							</thead>
 							<tbody>
@@ -67,14 +67,14 @@
 								<td>
 									<?= $value["bobot_kriteria"] ?>
 								</td>
-								<td>
+								<!-- <td>
 									<?= form_open("kades/data-kriteria")?>
-									<!--   <input type="submit" class="btn btn-danger" name="hapus" value="hapus">
-									  <input type="submit" class="btn btn-primary" name="ubah" value="Ubah"> -->
+									  <input type="submit" class="btn btn-danger" name="hapus" value="hapus">
+									  <input type="submit" class="btn btn-primary" name="ubah" value="Ubah">
 									  <input type="submit" class="btn btn-warning" name="faktor" value="Faktor">
 									  <input type="hidden" name="id" value="<?= $value['id_kriteria']?>">
 									<?= form_close();?>
-								</td>
+								</td> -->
 							</tr>
 						<?php $i++; } ?>
                            </tbody>

@@ -261,23 +261,49 @@ class Kades extends MY_Controller
 	// }
 
 	public function perangkingan(){
-	   if($this->input->post('perangkingan')){
-          $this->load->model('Datacalon');
-	   	    $data_calon = new Datacalon();
-	   	    $data = $data_calon->get_data_calon();
-          if($this->input->post('mfep')){
-             $this->load->library("MFEP");
-             $mfep = $this->mfep;
-             $this->data["mfep"] = $mfep->do_mfep($data);
-          }
-          if($this->input->post('wp')){
-            $this->load->library('WeightedProduct');
-            $wp = $this->weightedproduct;
-            $this->data['wp'] = $wp->do_wp($data);
-          }
-	   }
+	   $this->load->model('Datacalon');
+	   $data_calon = new Datacalon();
+	 
+       
+       if($this->input->post('set')){
+            $data = $data_calon->get_data_calon();
+            
+            $rank_manual = [];
+            foreach ($data as $value) {
+            	$this->data["rank_manual"][$this->input->post($value['id_calon'])] = $value['nama'];
+            }
+            ksort($this->data['rank_manual']);
+            $this->data['rank_manual'] = array_values($this->data['rank_manual']);
+
+            if($this->input->post('mfep')){
+               $this->load->library("MFEP");
+               $mfep = $this->mfep;
+               $this->data["mfep"] = $mfep->do_mfep($data);
+               $this->data["akurasi_mfep"] =$this->getAkurasi($this->data['rank_manual'],$this->data['mfep']);
+            }
+            if($this->input->post('wp')){
+              $this->load->library('WeightedProduct');
+              $wp = $this->weightedproduct;
+              $this->data['wp'] = $wp->do_wp($data);
+              $this->data["akurasi_wp"] =$this->getAkurasi($this->data['rank_manual'],$this->data['wp']);
+            }
+            $this->data['do_rank'] = true;
+       }
+
+       $this->data['data_calon'] = $data_calon->get_data_calon();
 	   $this->data['title']	= 'Perangkingan';
 	   $this->data['content']	= 'perangkingan';
 	   $this->template($this->data, $this->module);	
+	}
+
+	private function getAkurasi($rangking_kades,$rangking_spk){
+        $jumlah_data = sizeof($rangking_kades);
+        $true = 0;
+        for($i=0;$i<sizeof($rangking_kades);$i++){
+	    	if($rangking_kades[$i] == $rangking_spk[$i]['nama']){
+              $true++;
+	    	}
+        }
+        return ($true/$jumlah_data)*100;
 	}
 }

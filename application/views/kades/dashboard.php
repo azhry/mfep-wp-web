@@ -23,7 +23,7 @@
             </div>
          </div>
       </a>
-      <a href="<?= base_url('kades/data-kriteria')?>">
+    <!--   <a href="<?= base_url('kades/data-kriteria')?>">
          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="dashboard-stat blue">
                <div class="visual">
@@ -42,7 +42,7 @@
                </a>
             </div>
          </div>
-      </a>
+      </a> -->
       <a href="<?= base_url('kades/perangkingan')?>">
          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="dashboard-stat green">

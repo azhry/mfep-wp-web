@@ -17,12 +17,12 @@
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
-                 <li>
+                <!--  <li>
                     <a href="<?= base_url('kades/data-kriteria') ?>">
                         <i class="fa fa-cubes"></i> 
                         <span class="title">Kriteria</span>
                     </a>
-                </li>
+                </li> -->
                 <li>
                     <a href="<?= base_url('kades/data-calon-penerima-bantuan') ?>">
                         <i class="fa fa-list"></i> 
