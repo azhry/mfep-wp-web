@@ -75,16 +75,16 @@
 						?>
 						<div class="form-group">
 							<label for="<?= $name ?>"><?= $row->nama_kriteria ?></label>
-							<?php // if ($row->nama_kriteria == 'Penghasilan' or $row->nama_kriteria == 'Jumlah Tanggungan'): ?>
-							<!-- <input type="number" name="<?= $name ?>" class="form-control"> -->
-							<?php // else: ?>
+							<?php if ($row->nama_kriteria == 'Penghasilan' or $row->nama_kriteria == 'Jumlah Tanggungan'): ?>
+								<input type="number" name="<?= $name ?>" class="form-control">
+							<?php else: ?>
 							<select class="form-control" required name="<?= $name ?>">
 								<option value="">Pilih <?= $row->nama_kriteria ?></option>
 								<?php foreach ($row->faktor as $faktor): ?>
 									<option value="<?= $faktor->Id_faktor ?>"><?= $faktor->nama_faktor ?></option>
 								<?php endforeach; ?>
 							</select>
-							<?php // endif; ?>
+							<?php endif; ?>
 						</div>
 					<?php endforeach; ?>
 					<div class="form-group">

@@ -43,52 +43,52 @@ class Admin extends MY_Controller
 			{
 				$name = str_replace(' ', '_', strtolower($kriteria->nama_kriteria));
 				$id_faktor = $this->POST($name);
-				// if ($kriteria->nama_kriteria == 'Penghasilan')
-				// {
-				// 	if ($id_faktor > 1500000)
-				// 	{
-				// 		$id_faktor = 31;
-				// 	}
-				// 	else if ($id_faktor >= 1300001 && $id_faktor <= 1500000)
-				// 	{
-				// 		$id_faktor = 32;
-				// 	}
-				// 	else if ($id_faktor >= 800000 && $id_faktor <= 1300000)
-				// 	{
-				// 		$id_faktor = 33;
-				// 	}
-				// 	else if ($id_faktor >= 300000 && $id_faktor <= 800000)
-				// 	{
-				// 		$id_faktor = 34;
-				// 	}
-				// 	else if ($id_faktor < 300000)
-				// 	{
-				// 		$id_faktor = 35;
-				// 	}
-				// }
-				// if ($kriteria->nama_kriteria == 'Jumlah Tanggungan')
-				// {
-				// 	if ($id_faktor == 1)
-				// 	{
-				// 		$id_faktor = 38;
-				// 	}
-				// 	else if ($id_faktor > 1 && $id_faktor <= 2)
-				// 	{
-				// 		$id_faktor = 37;
-				// 	}
-				// 	else if ($id_faktor >= 3 && $id_faktor <= 5)
-				// 	{
-				// 		$id_faktor = 36;
-				// 	}
-				// 	else if ($id_faktor >= 6 && $id_faktor <= 8)
-				// 	{
-				// 		$id_faktor = 30;
-				// 	}
-				// 	else if ($id_faktor > 8)
-				// 	{
-				// 		$id_faktor = 29;
-				// 	}
-				// }
+				if ($kriteria->nama_kriteria == 'Penghasilan')
+				{
+					if ($id_faktor > 1500000)
+					{
+						$id_faktor = 31;
+					}
+					else if ($id_faktor >= 1300001 && $id_faktor <= 1500000)
+					{
+						$id_faktor = 32;
+					}
+					else if ($id_faktor >= 800000 && $id_faktor <= 1300000)
+					{
+						$id_faktor = 33;
+					}
+					else if ($id_faktor >= 300000 && $id_faktor <= 800000)
+					{
+						$id_faktor = 34;
+					}
+					else if ($id_faktor < 300000)
+					{
+						$id_faktor = 35;
+					}
+				}
+				if ($kriteria->nama_kriteria == 'Jumlah Tanggungan')
+				{
+					if ($id_faktor == 1)
+					{
+						$id_faktor = 38;
+					}
+					else if ($id_faktor > 1 && $id_faktor <= 2)
+					{
+						$id_faktor = 37;
+					}
+					else if ($id_faktor >= 3 && $id_faktor <= 5)
+					{
+						$id_faktor = 36;
+					}
+					else if ($id_faktor >= 6 && $id_faktor <= 8)
+					{
+						$id_faktor = 30;
+					}
+					else if ($id_faktor > 8)
+					{
+						$id_faktor = 29;
+					}
+				}
 
 				$datacalon []= [
 					'id_calon'		=> $calon->id_calon,
