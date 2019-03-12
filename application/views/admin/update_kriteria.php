@@ -9,7 +9,7 @@
 					<div class="caption">Perbarui Kriteria</div>
 				</div>
 				<div class="portlet-body">
-					<?= form_open('kades/update_kriteria/'.$kriteria["id_kriteria"]) ?>
+					<?= form_open('admin/update_kriteria/'.$kriteria["id_kriteria"]) ?>
 					<div class="form-group">
 						<label for="nama_k">Nama Kriteria</label>
 						<input type="text" name="nama_k_baru" class="form-control" value="<?= $kriteria['nama_kriteria']?>">
