@@ -1,3 +1,4 @@
+
 <div class="page-content">
 	<!-- BEGIN PAGE CONTENT INNER -->
 	<?= $this->session->flashdata('msg') ?>
@@ -26,7 +27,7 @@
 									<td><?= $row->Nama ?></td>
 									<?php for ($i = 0; $i < count($kriteria); $i++): ?>
 										<?php if (isset($row->datacalon[$i]->faktor)): ?>
-											<td><?= $row->datacalon[$i]->faktor->nama_faktor ?></td>
+											<td><?= $row->datacalon[$i]->real_value ?></td>
 										<?php else: ?>
 											<td>-</td>
 										<?php endif; ?>

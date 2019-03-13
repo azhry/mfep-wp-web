@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 30 Jan 2019 pada 04.01
--- Versi Server: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Generation Time: 13 Mar 2019 pada 14.53
+-- Versi Server: 10.1.13-MariaDB
+-- PHP Version: 5.6.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -40,9 +38,10 @@ CREATE TABLE `calon` (
 --
 
 INSERT INTO `calon` (`id_calon`, `Nama`, `created_at`, `updated_at`) VALUES
-(32, 'Hasbullah', '2019-01-28 11:05:21', '2019-01-28 11:05:21'),
-(33, 'Aspian', '2019-01-28 11:06:54', '2019-01-28 11:06:54'),
-(34, 'Paizal Aziz', '2019-01-28 11:08:13', '2019-01-28 11:08:13');
+(45, 'Hasbullah', '2019-03-13 13:27:36', '2019-03-13 13:27:36'),
+(46, 'Aspian', '2019-03-13 13:28:37', '2019-03-13 13:28:37'),
+(48, 'Amir Hamzah', '2019-03-13 13:44:37', '2019-03-13 13:44:37'),
+(50, 'Paizal Aziz', '2019-03-13 13:50:29', '2019-03-13 13:50:29');
 
 -- --------------------------------------------------------
 
@@ -55,6 +54,7 @@ CREATE TABLE `data_calon` (
   `id_calon` int(11) NOT NULL,
   `id_kriteria` int(11) NOT NULL,
   `id_faktor` int(11) NOT NULL,
+  `real_value` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -63,28 +63,35 @@ CREATE TABLE `data_calon` (
 -- Dumping data untuk tabel `data_calon`
 --
 
-INSERT INTO `data_calon` (`id_data_calon`, `id_calon`, `id_kriteria`, `id_faktor`, `created_at`, `updated_at`) VALUES
-(40, 32, 14, 22, '2019-01-28 11:05:21', '2019-01-28 11:05:21'),
-(41, 32, 15, 21, '2019-01-28 11:05:21', '2019-01-28 11:05:21'),
-(42, 32, 17, 27, '2019-01-28 11:05:21', '2019-01-28 11:05:21'),
-(43, 32, 19, 36, '2019-01-28 11:05:21', '2019-01-28 11:05:21'),
-(44, 32, 20, 40, '2019-01-28 11:05:21', '2019-01-28 11:05:21'),
-(45, 32, 21, 32, '2019-01-28 11:05:21', '2019-01-28 11:05:21'),
-(46, 32, 22, 47, '2019-01-28 11:05:21', '2019-01-28 11:05:21'),
-(47, 33, 14, 26, '2019-01-28 11:06:54', '2019-01-28 11:06:54'),
-(48, 33, 15, 21, '2019-01-28 11:06:54', '2019-01-28 11:06:54'),
-(49, 33, 17, 24, '2019-01-28 11:06:54', '2019-01-28 11:06:54'),
-(50, 33, 19, 36, '2019-01-28 11:06:54', '2019-01-28 11:06:54'),
-(51, 33, 20, 40, '2019-01-28 11:06:54', '2019-01-28 11:06:54'),
-(52, 33, 21, 34, '2019-01-28 11:06:54', '2019-01-28 11:06:54'),
-(53, 33, 22, 47, '2019-01-28 11:06:54', '2019-01-28 11:06:54'),
-(54, 34, 14, 16, '2019-01-28 11:08:13', '2019-01-28 11:08:13'),
-(55, 34, 15, 25, '2019-01-28 14:19:12', '2019-01-28 14:19:12'),
-(56, 34, 17, 27, '2019-01-28 11:08:13', '2019-01-28 11:08:13'),
-(57, 34, 19, 30, '2019-01-28 11:08:13', '2019-01-28 11:08:13'),
-(58, 34, 20, 40, '2019-01-28 11:08:13', '2019-01-28 11:08:13'),
-(59, 34, 21, 33, '2019-01-28 11:08:13', '2019-01-28 11:08:13'),
-(60, 34, 22, 45, '2019-01-28 11:08:13', '2019-01-28 11:08:13');
+INSERT INTO `data_calon` (`id_data_calon`, `id_calon`, `id_kriteria`, `id_faktor`, `real_value`, `created_at`, `updated_at`) VALUES
+(110, 45, 14, 22, ' Petani ', '2019-03-13 13:27:36', '0000-00-00 00:00:00'),
+(111, 45, 15, 21, 'Papan', '2019-03-13 13:27:36', '0000-00-00 00:00:00'),
+(112, 45, 17, 27, 'Milik sendiri (tanpa subsidi)', '2019-03-13 13:27:36', '0000-00-00 00:00:00'),
+(113, 45, 19, 36, '4', '2019-03-13 13:27:36', '0000-00-00 00:00:00'),
+(114, 45, 20, 40, 'Milik Sendiri', '2019-03-13 13:27:36', '0000-00-00 00:00:00'),
+(115, 45, 21, 32, '1500000', '2019-03-13 13:27:36', '0000-00-00 00:00:00'),
+(116, 45, 22, 47, 'Panggung', '2019-03-13 13:27:36', '0000-00-00 00:00:00'),
+(117, 46, 14, 26, 'Buruh', '2019-03-13 13:28:37', '0000-00-00 00:00:00'),
+(118, 46, 15, 21, 'Papan', '2019-03-13 13:28:37', '0000-00-00 00:00:00'),
+(119, 46, 17, 24, ' Milik Sendiri (subsidi) ', '2019-03-13 13:28:37', '0000-00-00 00:00:00'),
+(120, 46, 19, 36, '3', '2019-03-13 13:28:37', '0000-00-00 00:00:00'),
+(121, 46, 20, 40, 'Milik Sendiri', '2019-03-13 13:28:37', '0000-00-00 00:00:00'),
+(122, 46, 21, 33, '800000', '2019-03-13 13:28:37', '0000-00-00 00:00:00'),
+(123, 46, 22, 47, 'Panggung', '2019-03-13 13:28:37', '0000-00-00 00:00:00'),
+(131, 48, 14, 16, 'Wirausaha', '2019-03-13 13:44:37', '0000-00-00 00:00:00'),
+(132, 48, 15, 21, 'Papan', '2019-03-13 13:44:37', '0000-00-00 00:00:00'),
+(133, 48, 17, 27, 'Milik sendiri (tanpa subsidi)', '2019-03-13 13:44:37', '0000-00-00 00:00:00'),
+(134, 48, 19, 36, '3', '2019-03-13 13:44:37', '0000-00-00 00:00:00'),
+(135, 48, 20, 40, 'Milik Sendiri', '2019-03-13 13:44:37', '0000-00-00 00:00:00'),
+(136, 48, 21, 32, '1400000', '2019-03-13 13:44:37', '0000-00-00 00:00:00'),
+(137, 48, 22, 47, 'Panggung', '2019-03-13 13:44:37', '0000-00-00 00:00:00'),
+(145, 50, 14, 16, 'Wirausaha', '2019-03-13 13:50:29', '0000-00-00 00:00:00'),
+(146, 50, 15, 25, 'Beton', '2019-03-13 13:50:29', '0000-00-00 00:00:00'),
+(147, 50, 17, 27, 'Milik sendiri (tanpa subsidi)', '2019-03-13 13:50:29', '0000-00-00 00:00:00'),
+(148, 50, 19, 30, '8', '2019-03-13 13:50:29', '0000-00-00 00:00:00'),
+(149, 50, 20, 40, 'Milik Sendiri', '2019-03-13 13:50:29', '0000-00-00 00:00:00'),
+(150, 50, 21, 33, '1300000', '2019-03-13 13:50:29', '0000-00-00 00:00:00'),
+(151, 50, 22, 45, 'Permanen', '2019-03-13 13:50:29', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -158,7 +165,7 @@ INSERT INTO `kriteria` (`id_kriteria`, `nama_kriteria`, `bobot_kriteria`, `kondi
 (14, 'Pekerjaan', 3, 'Cost(-)', '2019-01-28 10:26:35', '2019-01-28 10:26:35'),
 (15, 'Kondisi Rumah', 1, 'Cost(-)', '2019-01-28 10:27:04', '2019-01-28 10:27:04'),
 (17, 'Jaringan Listrik', 2, 'Cost(-)', '2019-01-28 10:27:20', '2019-01-28 10:27:20'),
-(19, 'Jumlah Tanggungan', 5, 'Benefit(+)', '2019-01-28 14:07:03', '2019-01-28 14:07:03'),
+(19, 'Jumlah Tanggungan', 5, 'Benefit(+)', '2019-03-12 13:05:30', '2019-03-12 13:05:30'),
 (20, 'Kepemilikan Rumah', 3, 'Cost(-)', '2019-01-28 10:27:13', '2019-01-28 10:27:13'),
 (21, 'Penghasilan', 5, 'Cost(-)', '2019-01-28 10:26:46', '2019-01-28 10:26:46'),
 (22, 'Jenis Rumah', 4, 'Cost(-)', '2019-01-28 10:27:31', '2019-01-28 10:27:31');
@@ -347,44 +354,37 @@ ALTER TABLE `warga`
 -- AUTO_INCREMENT for table `calon`
 --
 ALTER TABLE `calon`
-  MODIFY `id_calon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
-
+  MODIFY `id_calon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 --
 -- AUTO_INCREMENT for table `data_calon`
 --
 ALTER TABLE `data_calon`
-  MODIFY `id_data_calon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
+  MODIFY `id_data_calon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 --
 -- AUTO_INCREMENT for table `faktor`
 --
 ALTER TABLE `faktor`
   MODIFY `Id_faktor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
-
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
   MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
   MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
   MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `warga`
 --
 ALTER TABLE `warga`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
-
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
@@ -408,7 +408,6 @@ ALTER TABLE `faktor`
 --
 ALTER TABLE `pengguna`
   ADD CONSTRAINT `pengguna_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -123,26 +123,19 @@ class Kades extends MY_Controller
 
 	public function data_calon_penerima_bantuan()
 	{ 
-		// if($this->input->post('hapus')){
-  //           $this->load->model("Calon");
-  //           $id = $this->input->post("id_calon");
-  //           $calon = Calon::find($id);
-  //           $calon->delete();
-            
-  //           $this->flashmsg('Data deleted');
-		// 	redirect('kades/data_calon_penerima_bantuan/');
-		// }else if($this->input->post('ubah')){
-  //           $this->ubah_data_calon_penerima_bantuan($this->input->post('id_calon'));
-		// }else{
-      $this->load->model("Kriteria");
-		  $this->load->model("Datacalon");
-		  $data_calon = new Datacalon();
-		  $this->data['calon'] = $data_calon->get_data_calon();
-			$this->data['kriteria'] = Kriteria::orderBy('nama_kriteria','ASC')->get(); //order_by
-			$this->data['title']	= 'Data Calon Penerima Bantuan';
-			$this->data['content']	= 'data_calon_penerima_bantuan';
-			$this->template($this->data, $this->module);
-		// }
+	$this->load->model('Calon');
+		$this->load->model('Datacalon');
+		$this->load->model('Kriteria');
+
+		$this->data['kriteria']	= Kriteria::with('faktor')
+									->get();
+
+		$this->data['calon']	= Calon::with('datacalon', 'datacalon.kriteria', 'datacalon.faktor')
+									->get();
+
+		$this->data['title']	= 'Data Calon Penerima Bantuan';
+		$this->data['content']	= 'data_calon_penerima_bantuan';
+		$this->template($this->data, $this->module);
 	}
 
 	// public function ubah_data_calon_penerima_bantuan($id_calon){

@@ -34,7 +34,8 @@ class Admin extends MY_Controller
 
 		if ($this->POST('tambah'))
 		{
-			$calon = new Calon();
+			$calon       = new Calon();
+			$faktor      = new Faktor();
 			$calon->Nama = $this->POST('nama');
 			$calon->save();
 
@@ -43,8 +44,11 @@ class Admin extends MY_Controller
 			{
 				$name = str_replace(' ', '_', strtolower($kriteria->nama_kriteria));
 				$id_faktor = $this->POST($name);
+				$real_value = Faktor::find($id_faktor)->nama_faktor;
+				
 				if ($kriteria->nama_kriteria == 'Penghasilan')
 				{
+					$real_value = $id_faktor;
 					if ($id_faktor > 1500000)
 					{
 						$id_faktor = 31;
@@ -68,6 +72,7 @@ class Admin extends MY_Controller
 				}
 				if ($kriteria->nama_kriteria == 'Jumlah Tanggungan')
 				{
+					$real_value = $id_faktor;
 					if ($id_faktor == 1)
 					{
 						$id_faktor = 38;
@@ -93,7 +98,8 @@ class Admin extends MY_Controller
 				$datacalon []= [
 					'id_calon'		=> $calon->id_calon,
 					'id_kriteria'	=> $kriteria->id_kriteria,
-					'id_faktor'		=> $id_faktor
+					'id_faktor'		=> $id_faktor,
+					'real_value'    => $real_value
 				];
 			}
 

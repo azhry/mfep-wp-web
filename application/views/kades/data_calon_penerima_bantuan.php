@@ -34,50 +34,30 @@
 									</div>
 								</div>
 							</div> -->
-							<table class="table table-striped table-bordered table-hover" id="sample_2">
-							<thead>
+							<table class="table table-striped table-hover table-bordered">
+						<thead>
 							<tr>
 								<th>Nama</th>
-								<?php
-                                     foreach ($kriteria as $value) {
-								 ?>
-								 <th><?= $value['nama_kriteria']; ?></th>
-								<?php } ?>
-								<!-- <th>Aksi</th> -->
+								<?php foreach ($kriteria as $row): ?>
+									<th><?= $row->nama_kriteria ?></th>
+								<?php endforeach; ?>
 							</tr>
-							</thead>
-							<tbody>
-						    <?php 
-                               foreach ($calon as $value) {
-						    ?>
-							<tr class="odd gradeX">
-								  <td><?= $value['nama']; ?></td>
-								 <?php 
-								    $res;
-								    // var_dump($value['kriteria']['nama']);
-                                    for ($i=0; $i < sizeof($kriteria); $i++){ 
-                                    	$res = "";
-                                    	for ($j=0; $j < sizeof($value['kriteria']['nama']); $j++) { 
-                                    		if($value['kriteria']['nama'][$j] == $kriteria[$i]['nama_kriteria']){
-                                               $res = $value['faktor']['nama'][$j];
-                                               break;
-                                    		}
-                                    	}
-                                    	echo "<td>".$res."</td>";
-                                    }
-								 ?>
-							<!-- 	 <td>
-								 	<?= form_open("kades/data_calon_penerima_bantuan") ?>
-								 	  <input type="hidden" name="id_calon" value="<?= $value['id_calon'] ?>">
-								 	  <input type="submit" style="    width: 68px;" name="ubah" value="ubah" class="btn btn-primary">
-								 	  <input type="submit" name="hapus" value="hapus" class="btn btn-danger">
-								 	<?= form_close() ?>
-								 </td> -->
-							</tr>
-							<?php } ?>				
-                           </tbody>
-                           <!-- for every data -->
-                       </table>
+						</thead>
+						<tbody>
+							<?php foreach ($calon as $row): ?>
+								<tr>
+									<td><?= $row->Nama ?></td>
+									<?php for ($i = 0; $i < count($kriteria); $i++): ?>
+										<?php if (isset($row->datacalon[$i]->faktor)): ?>
+											<td><?= $row->datacalon[$i]->real_value ?></td>
+										<?php else: ?>
+											<td>-</td>
+										<?php endif; ?>
+									<?php endfor; ?>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
 						</div>
 					</div>
 					<!-- END EXAMPLE TABLE PORTLET-->
