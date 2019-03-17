@@ -23,6 +23,101 @@ class Admin extends MY_Controller
 		$this->template($this->data, $this->module);
 	}
 
+	public function edit_data_calon()
+	{
+		$this->data['id_calon']	= $this->GET('id');
+		$this->check_allowance(!isset($this->data['id_calon']));
+
+		$this->load->model('Calon');
+		$this->data['calon'] = Calon::with('datacalon')->find($this->data['id_calon']);
+		$this->check_allowance(!isset($this->data['calon']), ['Data tidak ditemukan', 'danger']);
+
+		$this->load->helper('array');
+
+		$this->load->model('Kriteria');
+		$this->data['kriteria'] = Kriteria::with('faktor')
+									->get();
+		
+		if ($this->POST('submit'))
+		{
+			$this->data['calon']->Nama = $this->POST('nama');
+			$this->data['calon']->save();
+
+			$datacalon = [];
+			foreach ($this->data['kriteria'] as $kriteria)
+			{
+				$name = str_replace(' ', '_', strtolower($kriteria->nama_kriteria));
+				$id_faktor = $this->POST($name);
+				$real_value = Faktor::find($id_faktor)->nama_faktor;
+				
+				if ($kriteria->nama_kriteria == 'Penghasilan')
+				{
+					$real_value = $id_faktor;
+					if ($id_faktor > 1500000)
+					{
+						$id_faktor = 31;
+					}
+					else if ($id_faktor >= 1300001 && $id_faktor <= 1500000)
+					{
+						$id_faktor = 32;
+					}
+					else if ($id_faktor >= 800000 && $id_faktor <= 1300000)
+					{
+						$id_faktor = 33;
+					}
+					else if ($id_faktor >= 300000 && $id_faktor <= 800000)
+					{
+						$id_faktor = 34;
+					}
+					else if ($id_faktor < 300000)
+					{
+						$id_faktor = 35;
+					}
+				}
+				if ($kriteria->nama_kriteria == 'Jumlah Tanggungan')
+				{
+					$real_value = $id_faktor;
+					if ($id_faktor == 1)
+					{
+						$id_faktor = 38;
+					}
+					else if ($id_faktor > 1 && $id_faktor <= 2)
+					{
+						$id_faktor = 37;
+					}
+					else if ($id_faktor >= 3 && $id_faktor <= 5)
+					{
+						$id_faktor = 36;
+					}
+					else if ($id_faktor >= 6 && $id_faktor <= 8)
+					{
+						$id_faktor = 30;
+					}
+					else if ($id_faktor > 8)
+					{
+						$id_faktor = 29;
+					}
+				}
+
+				$datacalon []= [
+					'id_calon'		=> $this->data['calon']->id_calon,
+					'id_kriteria'	=> $kriteria->id_kriteria,
+					'id_faktor'		=> $id_faktor,
+					'real_value'    => $real_value
+				];
+			}
+
+			Datacalon::where('id_calon', $this->data['id_calon'])->delete();
+			Datacalon::insert($datacalon);
+			$this->flashmsg('Data berhasil diperbarui');
+			redirect('admin/edit-data-calon?id=' . $this->data['id_calon']);
+		}
+
+		$this->data['title']	= 'Edit Data Calon';
+		$this->data['content']	= 'edit_data_calon';
+		$this->template($this->data, $this->module);
+	}
+
 	public function data_calon_penerima_bantuan2()
 	{
 		$this->load->model('Calon');
@@ -124,52 +219,6 @@ class Admin extends MY_Controller
 		$this->template($this->data, $this->module);
 	}
 
-	// public function data_calon_penerima_bantuan()
-	// {
-	// 	if ($this->POST('import'))
-	// 	{
-	// 		$this->upload('data', 'data', 'file', '.xlsx');
-
-	// 		require_once APPPATH . 'libraries/SpreadsheetHandler.php';
-	// 		$excel = new SpreadsheetHandler();
-	// 		$sheet = $excel->read(FCPATH . 'data/data.xlsx');
-	// 		$excel->saveToDB($sheet);
-			
-	// 		$this->flashmsg('New data imported');
-	// 		redirect('admin/data-calon-penerima-bantuan');
-	// 	}
-
-	// 	$this->load->model('Warga');
-	// 	if ($this->POST('hapus'))
-	// 	{
-	// 		$warga = Warga::find($this->uri->segment(3));
-	// 		$warga->delete();
-	// 		$this->flashmsg('Data deleted');
-	// 		redirect('admin/data-calon-penerima-bantuan');
-	// 	}
-
-	// 	if ($this->POST('tambah'))
-	// 	{
-	// 		$warga = new Warga();
-	// 		$warga->nama 				= $this->POST('nama');
-	// 		$warga->pekerjaan 			= $this->POST('pekerjaan');
-	// 		$warga->penghasilan 		= $this->POST('penghasilan');
-	// 		$warga->jumlah_tanggungan 	= $this->POST('jumlah_tanggungan');
-	// 		$warga->kondisi_rumah 		= $this->POST('kondisi_rumah');
-	// 		$warga->kepemilikan_rumah 	= $this->POST('kepemilikan_rumah');
-	// 		$warga->jaringan_listrik 	= $this->POST('jaringan_listrik');
-	// 		$warga->jenis_rumah 		= $this->POST('jenis_rumah');
-	// 		$warga->save();
-
-	// 		$this->flashmsg('New data added');
-	// 		redirect('admin/data-calon-penerima-bantuan');
-	// 	}
-
-	// 	$this->data['warga']	= Warga::get();
-	// 	$this->data['title']	= 'Data Calon Penerima Bantuan';
-	// 	$this->data['content']	= 'data_calon_penerima_bantuan';
-	// 	$this->template($this->data, $this->module);
-	// }
 
 	public function data_kriteria(){
 		$this->load->model('Kriteria');

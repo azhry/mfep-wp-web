@@ -33,6 +33,7 @@
 										<?php endif; ?>
 									<?php endfor; ?>
 									<td>
+										<a href="<?= base_url('admin/edit-data-calon?id=' . $row->id_calon) ?>" class="btn blue btn-xs">Edit</a>
 										<?= form_open('admin/data-calon-penerima-bantuan2/' . $row->id_calon) ?>
 										<input type="submit" name="hapus" value="Hapus" class="btn red btn-xs">
 										<?= form_close() ?>
