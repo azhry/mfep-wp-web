@@ -256,34 +256,51 @@ class Kades extends MY_Controller
 	public function perangkingan(){
 	   $this->load->model('Datacalon');
 	   $data_calon = new Datacalon();
-	 
+	   
+	   $rangking_kades = [
+            "Husin p",
+			"Siti Noriyam",
+			"Yudin",
+			"Rusmalina",
+			"Muhammad eban",
+			"Bahroni",
+			"Ahmad saihoni",
+			"Ahmad sobki",
+			"Beben ta cesha",
+			"Ayopin jansens",
+			"Taklano",
+			"Mad nali",
+			"Hasbullah",
+			"Surimna",
+			"Hoirul",
+			"Amer",
+			"Raga",
+			"Nawaludin",
+			"Raisen",
+			"Ahmad rifani",
+			"Mat suhai",
+			"Muhammad kumpi"
+	   ];
        
        if($this->input->post('set')){
             $data = $data_calon->get_data_calon();
-            
-            $rank_manual = [];
-            foreach ($data as $value) {
-            	$this->data["rank_manual"][$this->input->post($value['id_calon'])] = $value['nama'];
-            }
-            ksort($this->data['rank_manual']);
-            $this->data['rank_manual'] = array_values($this->data['rank_manual']);
 
             if($this->input->post('mfep')){
                $this->load->library("MFEP");
                $mfep = $this->mfep;
                $this->data["mfep"] = $mfep->do_mfep($data);
-               $this->data["akurasi_mfep"] =$this->getAkurasi($this->data['rank_manual'],$this->data['mfep']);
+               $this->data["akurasi_mfep"] =$this->getAkurasi($rangking_kades,$this->data['mfep']);
             }
             if($this->input->post('wp')){
               $this->load->library('WeightedProduct');
               $wp = $this->weightedproduct;
               $this->data['wp'] = $wp->do_wp($data);
-              $this->data["akurasi_wp"] =$this->getAkurasi($this->data['rank_manual'],$this->data['wp']);
+              $this->data["akurasi_wp"] =$this->getAkurasi($rangking_kades,$this->data['wp']);
             }
             $this->data['do_rank'] = true;
        }
 
-       $this->data['data_calon'] = $data_calon->get_data_calon();
+       $this->data['data_calon'] = $rangking_kades;
 	   $this->data['title']	= 'Perangkingan';
 	   $this->data['content']	= 'perangkingan';
 	   $this->template($this->data, $this->module);	
