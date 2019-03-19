@@ -168,11 +168,11 @@ class Admin extends MY_Controller
 				if ($kriteria->nama_kriteria == 'Jumlah Tanggungan')
 				{
 					$real_value = $id_faktor;
-					if ($id_faktor == 1)
+					if ($id_faktor == 0)
 					{
 						$id_faktor = 38;
 					}
-					else if ($id_faktor > 1 && $id_faktor <= 2)
+					else if ($id_faktor >= 1 && $id_faktor <= 2)
 					{
 						$id_faktor = 37;
 					}
