@@ -6,14 +6,14 @@ class Kades extends MY_Controller
 	{
 		parent::__construct();
 		$this->module = 'kades';
-    $this->data['id_role']  = $this->session->userdata('id_role');
-    if (!isset($this->data['id_role']) or $this->data['id_role'] != 2)
-    {
-      $this->session->sess_destroy();
-      redirect('login');
-    }
-    $this->data['id_pengguna']  = $this->session->userdata('id_pengguna');
-    $this->data['username']     = $this->session->userdata('username');
+	    $this->data['id_role']  = $this->session->userdata('id_role');
+	    if (!isset($this->data['id_role']) or $this->data['id_role'] != 2)
+	    {
+	      $this->session->sess_destroy();
+	      redirect('login');
+	    }
+	    $this->data['id_pengguna']  = $this->session->userdata('id_pengguna');
+	    $this->data['username']     = $this->session->userdata('username');
 	}
 
 	public function index(){
@@ -24,6 +24,42 @@ class Kades extends MY_Controller
         $this->data['calon_count'] = count(Calon::get());
 		$this->data['title']	= 'Dashboard';
 		$this->data['content']	= 'dashboard';
+		$this->template($this->data, $this->module);
+	}
+
+	public function ganti_password()
+	{
+		if ($this->POST('submit'))
+		{
+			$this->load->model('Pengguna');
+			$oldPassword = $this->POST('old_password');
+			$pengguna = Pengguna::where('username', $this->data['username'])
+								->where('password', md5($oldPassword))
+								->first();
+
+			if (!isset($pengguna))
+			{
+				$this->flashmsg('Password lama yang anda masukkan salah', 'danger');
+				redirect('kades/ganti-password');
+			}
+
+			$newPassword 	= $this->POST('new_password');
+			$newRpassword	= $this->POST('new_rpassword');
+			if ($newPassword != $newRpassword)
+			{
+				$this->flashmsg('Password baru yang anda masukkan tidak sama', 'danger');
+				redirect('kades/ganti-password');
+			}
+
+			$pengguna->password = md5($newPassword);
+			$pengguna->save();
+
+			$this->flashmsg('Password berhasil diubah');
+			redirect('kades/ganti-password');
+		}
+
+		$this->data['title']	= 'Ganti Password';
+		$this->data['content']	= 'ganti_password';
 		$this->template($this->data, $this->module);
 	}
 

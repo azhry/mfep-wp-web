@@ -32,8 +32,8 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
-                                <a href="#">
-                                <i class="icon-user"></i> My Profile </a>
+                                <a href="<?= base_url('kades/ganti-password') ?>">
+                                <i class="icon-lock"></i> Ganti Password </a>
                             </li>
                             <li class="divider">
                             </li>

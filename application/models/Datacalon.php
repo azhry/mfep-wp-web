@@ -32,7 +32,7 @@ class Datacalon extends Eloquent
   }
 
   private function query_data_calon(){
-     $sql = $this->selectRaw("calon.id_calon,nama,GROUP_CONCAT( data_calon.id_data_calon SEPARATOR ',') as id_data_calon, GROUP_CONCAT(nama_kriteria SEPARATOR ',') as nama_kriteria, GROUP_CONCAT(bobot_kriteria SEPARATOR ',') as bobot_kriteria, GROUP_CONCAT(kriteria.id_kriteria SEPARATOR ',') as id_kriteria, GROUP_CONCAT(nama_faktor SEPARATOR ',') as nama_faktor, GROUP_CONCAT(bobot_faktor SEPARATOR ',') as bobot_faktor, GROUP_CONCAT(faktor.id_faktor SEPARATOR ',') as id_faktor")->join('calon','data_calon.id_calon','=','calon.id_calon')->join('kriteria','data_calon.id_kriteria','=','kriteria.id_kriteria')->join('faktor','data_calon.id_faktor','=','faktor.id_faktor')->groupBy('nama')->orderBy('kriteria.nama_kriteria','ASC');
+     $sql = $this->selectRaw("calon.id_calon,nama,GROUP_CONCAT( data_calon.id_data_calon SEPARATOR ',') as id_data_calon, GROUP_CONCAT(nama_kriteria SEPARATOR ',') as nama_kriteria, GROUP_CONCAT(bobot_kriteria SEPARATOR ',') as bobot_kriteria, GROUP_CONCAT(kondisi SEPARATOR ',') as kondisi, GROUP_CONCAT(kriteria.id_kriteria SEPARATOR ',') as id_kriteria, GROUP_CONCAT(nama_faktor SEPARATOR ',') as nama_faktor, GROUP_CONCAT(bobot_faktor SEPARATOR ',') as bobot_faktor, GROUP_CONCAT(faktor.id_faktor SEPARATOR ',') as id_faktor")->join('calon','data_calon.id_calon','=','calon.id_calon')->join('kriteria','data_calon.id_kriteria','=','kriteria.id_kriteria')->join('faktor','data_calon.id_faktor','=','faktor.id_faktor')->groupBy('nama')->orderBy('kriteria.nama_kriteria','ASC');
      return $sql;
   }
 
@@ -45,7 +45,8 @@ class Datacalon extends Eloquent
           $warga[$index]['id_calon'] = $value['id_calon'];
           $warga[$index]['kriteria']['id'] = explode(",", $value['id_kriteria']);   	  
           $warga[$index]['kriteria']['nama'] = explode(",", $value['nama_kriteria']);   	  
-          $warga[$index]['kriteria']['bobot'] = explode(",", $value['bobot_kriteria']);   	  
+          $warga[$index]['kriteria']['bobot'] = explode(",", $value['bobot_kriteria']); 
+          $warga[$index]['kriteria']['kondisi'] = explode(",", $value['kondisi']);   	  
           $warga[$index]['faktor']['id'] = explode(",", $value['id_faktor']);   	  
           $warga[$index]['faktor']['nama'] = explode(",", $value['nama_faktor']);   	  
           $warga[$index]['faktor']['bobot'] = explode(",", $value['bobot_faktor']);   	  

@@ -26,7 +26,7 @@
                   <li>
                     <a href="<?= base_url('admin/data-calon-penerima-bantuan2') ?>">
                         <i class="fa fa-list"></i> 
-                        <span class="title">Data</span>
+                        <span class="title">Data Calon Penerima Bantuan</span>
                     </a>
                 </li>
                  <!-- <li>

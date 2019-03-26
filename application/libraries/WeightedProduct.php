@@ -34,7 +34,17 @@ class WeightedProduct
 			$calon["nama"] 	= $value["nama"];  
 			for ($i = 0; $i < sizeof($value["kriteria"]["nama"]); $i++) 
 			{
-				array_push($val_nbe, pow($this->nbf[$i], -1 * $value["faktor"]["bobot"][$i]));
+				switch ($value['kriteria']['kondisi'][$i])
+				{
+					case 'Cost(-)':
+						array_push($val_nbe, pow($this->nbf[$i], -1 * $value["faktor"]["bobot"][$i]));
+						break;
+
+					case 'Benefit(+)':
+						array_push($val_nbe, pow($this->nbf[$i], $value["faktor"]["bobot"][$i]));
+						break;
+				}
+				
 			}
 			$calon["nbe"] 	= $val_nbe;
 			array_push($this->nbe, $calon);

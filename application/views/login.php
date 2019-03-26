@@ -54,7 +54,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN LOGO -->
     <div class="logo">
         <a href="#">
-            <h3>Sistem Pendukung Keputusan Penentu Calon Penerima Bantuan Sosial Beras Sejahtera (Bansos Rastra)</h3>
+            <h3>Perbandingan Metode Multi Factor Evaluation Process(MFEP) dan Metode Weighted Product(WP) untuk Penyeleksian Penerima Manfaat Bantuan Sosial Beras Sejahtera (Bansos Rastra)</h3>
             <h4>Desa Tanjung Muning, Sumatera Selatan</h4>
         </a>
     </div>
