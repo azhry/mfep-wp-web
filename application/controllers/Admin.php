@@ -53,6 +53,7 @@ class Admin extends MY_Controller
 				if ($kriteria->nama_kriteria == 'Penghasilan')
 				{
 					$real_value = $id_faktor;
+					var_dump("Penghasilan ".$real_value);
 					if ($id_faktor > 1500000)
 					{
 						$id_faktor = 31;
@@ -61,7 +62,7 @@ class Admin extends MY_Controller
 					{
 						$id_faktor = 32;
 					}
-					else if ($id_faktor >= 800000 && $id_faktor <= 1300000)
+					else if ($id_faktor > 800000 && $id_faktor <= 1300000)
 					{
 						$id_faktor = 33;
 					}
@@ -152,7 +153,7 @@ class Admin extends MY_Controller
 					{
 						$id_faktor = 32;
 					}
-					else if ($id_faktor >= 800000 && $id_faktor <= 1300000)
+					else if ($id_faktor >= 800001 && $id_faktor <= 1300000)
 					{
 						$id_faktor = 33;
 					}

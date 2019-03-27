@@ -317,21 +317,20 @@ class Kades extends MY_Controller
 			"Mat suhai",
 			"Muhammad kumpi"
 	   ];
-       
-       if($this->input->post('set')){
-            $data = $data_calon->get_data_calon();
 
+	   $data = $data_calon->get_data_calon();
+       if($this->input->post('set')){
             if($this->input->post('mfep')){
                $this->load->library("MFEP");
                $mfep = $this->mfep;
                $this->data["mfep"] = $mfep->do_mfep($data);
-               $this->data["akurasi_mfep"] =$this->getAkurasi($rangking_kades,$this->data['mfep']);
+               $this->data["akurasi_mfep"] =$this->getAkurasi($rangking_kades,$this->data['mfep'],sizeof($data));
             }
             if($this->input->post('wp')){
               $this->load->library('WeightedProduct');
               $wp = $this->weightedproduct;
               $this->data['wp'] = $wp->do_wp($data);
-              $this->data["akurasi_wp"] =$this->getAkurasi($rangking_kades,$this->data['wp']);
+              $this->data["akurasi_wp"] =$this->getAkurasi($rangking_kades,$this->data['wp'],sizeof($data));
             }
             $this->data['do_rank'] = true;
        }
@@ -339,15 +338,19 @@ class Kades extends MY_Controller
        $this->data['data_calon'] = $rangking_kades;
 	   $this->data['title']	= 'Perangkingan';
 	   $this->data['content']	= 'perangkingan';
+	   $this->data['data_size']	= sizeof($data);
 	   $this->template($this->data, $this->module);	
 	}
 
-	private function getAkurasi($rangking_kades,$rangking_spk){
+	private function getAkurasi($rangking_kades,$rangking_spk,$data_size){
         $jumlah_data = sizeof($rangking_kades);
         $true = 0;
-        for($i=0;$i<sizeof($rangking_kades);$i++){
+        for($i=0;$i<$data_size;$i++){
 	    	if($rangking_kades[$i] == $rangking_spk[$i]['nama']){
               $true++;
+	    	}
+	    	if($i == sizeof($rangking_kades)-1){
+               break;
 	    	}
         }
         return ($true/$jumlah_data)*100;

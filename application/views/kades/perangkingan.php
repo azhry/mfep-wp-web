@@ -124,7 +124,7 @@
                               </thead>
                               <tbody>
                                  <?php  
-                                   for($i=0;$i<22;$i++){
+                                   for($i=0;$i<$data_size;$i++){
                                    ?>
                                      <tr>
                                         <td><?= ($i+1)?></td>
@@ -146,13 +146,16 @@
                                               if(strtolower($wp[$i]["nama"]) == strtolower($data_calon[$i])){
                                                  $same = 'style="background-color: deepskyblue"';
                                               }
-                                              echo "<td".$same.">".$wp[$i]["nama"]."</td>";
+                                              echo "<td ".$same.">".$wp[$i]["nama"]."</td>";
                                            }else{
                                              echo "<td> - </td>";
                                            }
                                         ?>
                                      </tr>
-                                   <?php 
+                                   <?php
+                                    if($i == sizeof($data_calon)-1){
+                                        break;
+                                    } 
                                    }
                                  ?>
                               </tbody>
@@ -185,13 +188,16 @@
                                  </thead>
                                  <tbody>
                                    <?php 
-                                     for($i=0;$i<22;$i++){
+                                     for($i=0;$i<$data_size;$i++){
                                        ?>
                                          <tr>
                                             <td><?= $mfep[$i]["nama"]?></td>
                                             <td><?= $mfep[$i]["tbe"]?></td>
                                          </tr>
                                        <?php 
+                                        if($i == sizeof($data_calon)-1){
+                                            break;
+                                        } 
                                      }
                                    ?>
                                  </tbody>
@@ -226,13 +232,16 @@
                                  </thead>
                                  <tbody>
                                    <?php 
-                                     for($i=0;$i<22;$i++){
+                                     for($i=0;$i<$data_size;$i++){
                                        ?>
                                          <tr>
                                             <td><?= $wp[$i]["nama"]?></td>
                                             <td><?= $wp[$i]["tbe"]?></td>
                                          </tr>
                                        <?php 
+                                         if($i == sizeof($data_calon)-1){
+                                             break;
+                                         } 
                                      }
                                    ?>
                                  </tbody>
