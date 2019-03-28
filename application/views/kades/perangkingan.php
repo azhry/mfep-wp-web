@@ -227,7 +227,7 @@
                                        Nama
                                     </th>
                                     <th>
-                                       TBE
+                                       Nilai Preferensi
                                     </th>
                                  </thead>
                                  <tbody>
@@ -236,7 +236,7 @@
                                        ?>
                                          <tr>
                                             <td><?= $wp[$i]["nama"]?></td>
-                                            <td><?= $wp[$i]["tbe"]?></td>
+                                            <td><?= $wp[$i]["preference"]?></td>
                                          </tr>
                                        <?php 
                                          if($i == sizeof($data_calon)-1){

@@ -10,7 +10,8 @@ class WeightedProduct
 		$this->calculate_nbf($data);
 		$this->calculate_nbe($data);
 		$this->calculate_tbe();
-		$this->sort_tbe();
+		$this->calculate_preference();
+		$this->sort_preference();
 		return $this->nbe;
 	}
 
@@ -37,11 +38,13 @@ class WeightedProduct
 				switch ($value['kriteria']['kondisi'][$i])
 				{
 					case 'Cost(-)':
-						array_push($val_nbe, pow($this->nbf[$i], -1 * $value["faktor"]["bobot"][$i]));
+						// echo $value['faktor']['bobot'][$i] . '^' . (-1 * $this->nbf[$i]) . ' = ' . pow($value["faktor"]["bobot"][$i], -1 * $this->nbf[$i]) . '<br>';
+						array_push($val_nbe, pow($value["faktor"]["bobot"][$i], -1 * $this->nbf[$i]));
 						break;
 
 					case 'Benefit(+)':
-						array_push($val_nbe, pow($this->nbf[$i], $value["faktor"]["bobot"][$i]));
+						// echo $value['faktor']['bobot'][$i] . '^' . $this->nbf[$i] . ' = ' . pow($value["faktor"]["bobot"][$i], $this->nbf[$i]) . '<br>';
+						array_push($val_nbe, pow($value["faktor"]["bobot"][$i], $this->nbf[$i]));
 						break;
 				}
 				
@@ -64,12 +67,22 @@ class WeightedProduct
         }
 	}
 
-	private function sort_tbe()
+	private function calculate_preference()
+	{
+		$sum = array_sum(array_column($this->nbe, 'tbe'));
+		for ($i = 0; $i < sizeof($this->nbe); $i++) 
+        { 
+           $this->nbe[$i]["preference"] = $this->nbe[$i]['tbe'] / $sum;
+        }
+
+	}
+
+	private function sort_preference()
 	{
 		$sort = [];
 		foreach ($this->nbe as $index => $value) 
 		{
-			$sort[$index] = $value["tbe"];
+			$sort[$index] = $value["preference"];
 		}
 
 		array_multisort($sort, SORT_DESC, $this->nbe);
