@@ -315,7 +315,32 @@ class Kades extends MY_Controller
 			"Raisen",
 			"Ahmad rifani",
 			"Mat suhai",
-			"Muhammad kumpi"
+			"Muhammad kumpi",
+			'Mat suhai',
+			'Ahmad rifani',
+			'Nawaludin',
+			'Muhamad nasri',
+			'M jamil mk',
+			'Yunani',
+			'Hoiri mz',
+			'Amaludin',
+			'Sarmadi am',
+			'Azmar Ar',
+			'Hoirul',
+			'Hasbullah',
+			'Kunan',
+			'Ahmad nelni',
+			'Amir hamza',
+			'Amer',
+			'Mad sete’i',
+			'Saironi',
+			'Ahmadin',
+			'Paizal aziz',
+			'Asbianto',
+			'Samsir alam',
+			'Mat bujangan',
+			'Dede yusri',
+			'Mursalin'
 	   ];
 
 	   $data = $data_calon->get_data_calon();
@@ -329,7 +354,7 @@ class Kades extends MY_Controller
             if($this->input->post('wp')){
               $this->load->library('WeightedProduct');
               $wp = $this->weightedproduct;
-              $this->data['wp'] = $wp->do_wp($data);
+              $this->data['wp'] = $wp->calculateWp($data);
               $this->data["akurasi_wp"] =$this->getAkurasi($rangking_kades,$this->data['wp'],sizeof($data));
             }
             $this->data['do_rank'] = true;
