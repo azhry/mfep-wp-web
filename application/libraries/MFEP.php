@@ -17,27 +17,41 @@ class MFEP
        $sum = 0;
        $kriteria = $data[0]["kriteria"]["bobot"];
        $sum = array_sum($kriteria);
-       foreach ($kriteria as $value) {
-       	  array_push($this->nbf, ($value/$sum));
+
+       for($i=0;$i<sizeof($data[0]["kriteria"]["nama"]);$i++){
+         $this->nbf[$i]["kriteria"]    =  $data[0]["kriteria"]["nama"][$i];
+         $this->nbf[$i]["bobot"]       =  $data[0]["kriteria"]["bobot"][$i];
+         $this->nbf[$i]["normalisasi"] =  $data[0]["kriteria"]["bobot"][$i]/$sum;
        }
 	}
 
 	private function calculate_nbe($data){
-         foreach ($data as $value) {
-           $calon = [];
-           $val_nbe = [];
-           $calon["nama"] = $value["nama"];  
-           for ($i=0; $i < sizeof($value["kriteria"]["nama"]); $i++) {
-               array_push($val_nbe, $this->nbf[$i]*$value["faktor"]["bobot"][$i]);
-           }
-           $calon["nbe"] = $val_nbe;
-           array_push($this->nbe, $calon);
-         }
+        $index_nbe = 0;
+        for($i=0;$i<sizeof($data);$i++){
+            $this->nbe[$i]["nama"] = $data[$i]["nama"];
+            // var_dump($data[$i]["nama"]);
+            for($j=0;$j<sizeof($data[0]["kriteria"]["nama"]);$j++){
+               $kriteria_calon = $data[$i]["kriteria"]["nama"][$j];
+               $bobot_kriteria = $data[$i]["faktor"]["bobot"][$j];
+               // var_dump($data[$i]["kriteria"]["nama"][$j]);
+               // var_dump($data[$i]["faktor"]["bobot"][$j]);
+                foreach ($this->nbf as $key_nbf => $value_nbf) {
+                   $kriteria    = $value_nbf["kriteria"];
+                   $normalisasi = $value_nbf["normalisasi"];
+                   if($kriteria == $kriteria_calon){
+                     $this->nbe[$i]["nbe"]["kode_kriteria"][$j] = $kriteria;
+                     $this->nbe[$i]["nbe"]["nilai"][$j]         = $normalisasi*$bobot_kriteria;
+                     break;
+                   }   
+              }
+            }
+            // var_dump("\n");
+        }
 	}
 
 	private function calculate_tbe(){
         for ($i=0; $i < sizeof($this->nbe) ; $i++) { 
-           $this->nbe[$i]["tbe"] = array_sum($this->nbe[$i]["nbe"]);
+           $this->nbe[$i]["tbe"] = array_sum($this->nbe[$i]["nbe"]["nilai"]);
         }
 	}
 
