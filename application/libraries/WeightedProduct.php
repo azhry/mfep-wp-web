@@ -6,40 +6,59 @@ class WeightedProduct
 	// private $nbe = [];
 	private $alternativeValues = [];
 	private $normalizedWeights = [];
+	private $normalizedWeights2 = [];
 
 	private function normalizeWeight($data)
 	{
 		$sum 		= 0;
 		$kriteria 	= $data[0]['kriteria']['bobot'];
+		$label = $data[0]['kriteria']['nama'];
 		$sum 		= array_sum($kriteria);
-		foreach ($kriteria as $value) 
+		foreach ($kriteria as $i => $value) 
 		{
 			array_push($this->normalizedWeights, $value / $sum);
+			$this->normalizedWeights2[$label[$i]] = $value / $sum;
 		}
 	}
 
 	private function poweringValue($data)
 	{
-		foreach ($data as $value) 
+		foreach ($data as $z => $value) 
 		{
 			$calon 			= [];
 			$poweredVal 	= [];
 			$calon["nama"] 	= $value["nama"];  
+			$testIdx = 1;
+			// if ($z == $testIdx)
+			// var_dump($value['kriteria']);
+			// 	echo $calon['nama'] . ' :: ';
 			for ($i = 0; $i < sizeof($value["kriteria"]["nama"]); $i++) 
 			{
 				switch ($value['kriteria']['kondisi'][$i])
 				{
 					case 'Cost(-)':
-						array_push($poweredVal, pow($value["faktor"]["bobot"][$i], -1 * $this->normalizedWeights[$i]));
+						// echo $value['faktor']['bobot'][$i] . '^' . (-1 * $this->normalizedWeights2[$value['kriteria']['nama'][$i]]) . ' * ';
+						array_push($poweredVal, pow($value["faktor"]["bobot"][$i], -1 * $this->normalizedWeights2[$value['kriteria']['nama'][$i]]));
 						break;
 
 					case 'Benefit(+)':
-						array_push($poweredVal, pow($value["faktor"]["bobot"][$i], $this->normalizedWeights[$i]));
+						// echo $value['faktor']['bobot'][$i] . '^' . ($this->normalizedWeights2[$value['kriteria']['nama'][$i]]) . ' * ';
+						array_push($poweredVal, pow($value["faktor"]["bobot"][$i], $this->normalizedWeights2[$value['kriteria']['nama'][$i]]));
 						break;
 				}
-				
 			}
 			$calon["alternative_value"] = $poweredVal;
+			// if ($z == $testIdx)
+			// {
+				// $y = 1;
+				// foreach ($poweredVal as $x)
+				// {
+				// 	$y *= $x;
+				// }
+				// echo $y . '<br>';
+				// exit;
+			// }
+
 			array_push($this->alternativeValues, $calon);
 		}
 	}
@@ -54,6 +73,7 @@ class WeightedProduct
         		$vect *= $alternative_value;
         	}
            $this->alternativeValues[$i]["vect"] = $vect;
+        	
         }
 	}
 
