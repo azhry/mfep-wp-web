@@ -294,28 +294,28 @@ class Kades extends MY_Controller
 	   $data_calon = new Datacalon();
 	   //  22 RANGKING KADES MANUAL
 	   $rangking_kades = [
-	   	    "Siti Noriyam",
-            "Surimna",
-			"Mat suhai",
-			"Husin p",
-			"Ahmad saihoni",
-			"Bahroni",
-			"Raga",
-			"Taklano",
-			"Muhammad kumpi",
+	   	    "Husin p",
+			"Siti noriyam",
+			"Yudin",
+			"Rusmalina",
 			"Muhammad eban",
+			"Bahroni",
+			"Ahmad saihoni",
 			"Ahmad sobki",
 			"Beben ta cesha",
 			"Ayopin jansens",
-			"Yudin",
-			"Rusmalina",
+			"Taklano",
 			"Mad nali",
-			"Mat ripan s","
-			Muhammad suhai",
-			"Baharudin",
-			"Sarmadi am",
+			"Hasbullah",
+			"Surimna",
+			"Hoirul",
+			"Amer",
+			"Raga",
+			"Nawaludin",
 			"Raisen",
-			"Amer"
+			"Ahmad rifani",
+			"Mat suhai",
+			"Muhammad kumpi",
 	   ];
 
 	   $data = $data_calon->get_data_calon();
