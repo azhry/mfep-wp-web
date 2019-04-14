@@ -13,6 +13,14 @@ class MFEP
        return $this->nbe;
 	}
 
+  public function getNBF(){
+    return $this->nbf;
+  }
+  
+  public function getNBE(){
+    return $this->nbe; 
+  }
+
 	private function calculate_nbf($data){
        $sum = 0;
        $kriteria = $data[0]["kriteria"]["bobot"];
@@ -40,6 +48,8 @@ class MFEP
                    $normalisasi = $value_nbf["normalisasi"];
                    if($kriteria == $kriteria_calon){
                      $this->nbe[$i]["nbe"]["kode_kriteria"][$j] = $kriteria;
+                     $this->nbe[$i]["nbe"]["nef"][$j] = $bobot_kriteria;
+                     $this->nbe[$i]["nbe"]["nbf"][$j] = $normalisasi;
                      $this->nbe[$i]["nbe"]["nilai"][$j]         = $normalisasi*$bobot_kriteria;
                      break;
                    }   
