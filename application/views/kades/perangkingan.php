@@ -315,7 +315,78 @@
                <div class="portlet-body scroll">
                   <!--BEGIN TABS-->
                     <div class="well well-lg">
-                       
+                       <h4 class="block">Normalisasi Nilai Bobot (W)</h4>
+                       <table class="table table-bordered">
+                         <thead>
+                           <tr>
+                             <th>Nama Kriteria</th>
+                             <th>Bobot</th>
+                             <th>Normalisasi W</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                            <?php foreach ($normalized_weights as $key => $value): ?>
+                              <tr>
+                                <td><?= $key ?></td>
+                                <td><?= $weights[$key] ?></td>
+                                <td><?= $value ?></td>
+                              </tr>
+                            <?php endforeach; ?>
+                         </tbody>
+                       </table>
+                    </div>
+
+                    <div class="well well-lg">
+                       <h4 class="block">Nilai Vektor</h4>
+                       <?php  
+                         foreach ($wp as $i => $value) { ?>
+                           <p><b>Nama : <?= $value['nama']?></b></p>
+                            <table class="table table-bordered">
+                                <thead>
+                                  <th>Kriteria</th>
+                                  <th>Tipe</th>
+                                  <th>Nilai Faktor</th>
+                                  <th>Bobot Ternormalisasi</th>
+                                  <th>Nilai Vektor</th>
+                                </thead>
+                                <tbody>
+                             <?php 
+                                foreach ($value['vector_calculations'] as $k => $v) { ?>     
+                                         <tr>
+                                           <td><?= $k ?></td>
+                                           <td><?= $v['type'] ?></td>
+                                           <td><?= $v['factor'] ?></td>
+                                           <td><?= $v['normalized_weight'] ?></td>
+                                           <td><?= $v['val'] ?></td>
+                                         </tr>
+                               <?php  }
+                             ?>
+                              </tbody>
+                           </table>
+                       <?php  }
+                       ?>
+                    </div>
+
+                    <div class="well well-lg">
+                       <h4 class="block">Nilai Preferensi</h4>
+                       <table class="table table-bordered">
+                         <thead>
+                           <tr>
+                              <th>No.</th>
+                              <th>Nama</th>
+                              <th>Nilai Preferensi</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                            <?php foreach ($wp as $i => $row): ?>
+                              <tr>
+                                <td><?= $i + 1 ?></td>
+                                <td><?= $row['nama'] ?></td>
+                                <td><?= $row['preference'] ?></td>
+                              </tr>
+                            <?php endforeach; ?>
+                         </tbody>
+                       </table>
                     </div>
                   <!--END TABS-->
                </div>

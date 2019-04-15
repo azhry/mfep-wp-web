@@ -149,6 +149,10 @@ class Kades extends MY_Controller
               $this->load->library('WeightedProduct');
               $wp = $this->weightedproduct;
               $this->data['wp'] = $wp->calculateWp($data);
+              // $this->dump($this->data['wp']);
+              // exit;
+              $this->data['normalized_weights']	= $wp->getNormalizedWeights();
+              $this->data['weights']			= $wp->getWeights();
               $this->data["akurasi_wp"] =$this->getAkurasi($rangking_kades,$this->data['wp'],sizeof($data));
             }
             $this->data['do_rank'] = true;

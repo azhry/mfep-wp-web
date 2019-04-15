@@ -4,6 +4,7 @@ class WeightedProduct
 {
 	private $alternativeValues = [];
 	private $normalizedWeights = [];
+	private $weights = [];
 
 	private function normalizeWeight($data)
 	{
@@ -14,32 +15,64 @@ class WeightedProduct
 		foreach ($kriteria as $i => $value) 
 		{
 			$this->normalizedWeights[$label[$i]] = $value / $sum;
+			$this->weights[$label[$i]] = $value;
 		}
+	}
+
+	public function getNormalizedWeights()
+	{
+		return $this->normalizedWeights;
+	}
+
+	public function getWeights()
+	{
+		return $this->weights;
 	}
 
 	private function poweringValue($data)
 	{
 		foreach ($data as $z => $value) 
 		{
-			$calon 			= [];
-			$poweredVal 	= [];
-			$calon["nama"] 	= $value["nama"];  
+			$calon 				= [];
+			$poweredVal 		= [];
+			$criteriaVal 		= [];
+			$vectCalculations 	= [];
+			$calon["nama"] 		= $value["nama"];  
 
 			for ($i = 0; $i < sizeof($value["kriteria"]["nama"]); $i++) 
 			{
 				switch ($value['kriteria']['kondisi'][$i])
 				{
 					case 'Cost(-)':
-						array_push($poweredVal, pow($value["faktor"]["bobot"][$i], -1 * $this->normalizedWeights[$value['kriteria']['nama'][$i]]));
+						$val = pow($value["faktor"]["bobot"][$i], -1 * $this->normalizedWeights[$value['kriteria']['nama'][$i]]);
+						$vectCalculations[$value['kriteria']['nama'][$i]] = [
+							'type'				=> 'Cost(-)',
+							'factor'			=> $value["faktor"]["bobot"][$i],
+							'normalized_weight'	=> $this->normalizedWeights[$value['kriteria']['nama'][$i]],
+							'val'				=> $val
+						];
+						
+						array_push($poweredVal, $val);
+						$criteriaVal[$value['kriteria']['nama'][$i]] = $val;
 						break;
 
 					case 'Benefit(+)':
-						array_push($poweredVal, pow($value["faktor"]["bobot"][$i], $this->normalizedWeights[$value['kriteria']['nama'][$i]]));
+						$val = pow($value["faktor"]["bobot"][$i], $this->normalizedWeights[$value['kriteria']['nama'][$i]]);
+						$vectCalculations[$value['kriteria']['nama'][$i]] = [
+							'type'				=> 'Benefit(+)',
+							'factor'			=> $value["faktor"]["bobot"][$i],
+							'normalized_weight'	=> $this->normalizedWeights[$value['kriteria']['nama'][$i]],
+							'val'				=> $val
+						];
+						
+						array_push($poweredVal, $val);
+						$criteriaVal[$value['kriteria']['nama'][$i]] = $val;
 						break;
 				}
 			}
 			$calon["alternative_value"] = $poweredVal;
-
+			$calon['criteria_value'] = $criteriaVal;
+			$calon['vector_calculations'] = $vectCalculations;
 			array_push($this->alternativeValues, $calon);
 		}
 	}
