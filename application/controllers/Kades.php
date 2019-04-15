@@ -134,11 +134,15 @@ class Kades extends MY_Controller
 	   ];
 
 	   $data = $data_calon->get_data_calon();
+	   $this->data["akurasi_mfep"] = 0;
+	   $this->data["akurasi_wp"]   = 0;
        if($this->input->post('set')){
             if($this->input->post('mfep')){
                $this->load->library("MFEP");
                $mfep = $this->mfep;
                $this->data["mfep"] = $mfep->do_mfep($data);
+               $this->data["nbf_mfep"]  = $mfep->getNBF();
+               $this->data["nbe_mfep"]  = $mfep->getNBE();
                $this->data["akurasi_mfep"] =$this->getAkurasi($rangking_kades,$this->data['mfep'],sizeof($data));
             }
             if($this->input->post('wp')){
@@ -159,15 +163,15 @@ class Kades extends MY_Controller
 
 	private function getAkurasi($rangking_kades,$rangking_spk,$data_size){
         $jumlah_data = sizeof($rangking_kades);
-        $true = 0;
-        for($i=0;$i<$data_size;$i++){
-	    	if($rangking_kades[$i] == $rangking_spk[$i]['nama']){
-              $true++;
-	    	}
-	    	if($i == sizeof($rangking_kades)-1){
-               break;
+        $same = 0;
+        for($i=0;$i<$jumlah_data;$i++){
+	    	for($j = 0;$j<$jumlah_data;$j++){
+                if($rangking_kades[$i] == $rangking_spk[$j]['nama']){
+                    $same++;
+                    break;
+                }
 	    	}
         }
-        return ($true/$jumlah_data)*100;
+        return $same;
 	}
 }

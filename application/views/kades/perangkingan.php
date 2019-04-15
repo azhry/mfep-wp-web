@@ -45,68 +45,6 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="row margin-top-10">
-                              <?php if(isset($akurasi_mfep)) { ?>
-                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                 <div class="dashboard-stat2">
-                                    <div class="display">
-                                       <div class="number">
-                                          <h3 class="font-green-sharp"><?= $akurasi_mfep; ?><small class="font-green-sharp">%</small></h3>
-                                          <small>Akurasi Multi Factor Evaluation Process</small>
-                                       </div>
-                                       <div class="icon">
-                                          <i class="icon-pie-chart"></i>
-                                       </div>
-                                    </div>
-                                    <div class="progress-info">
-                                       <div class="progress">
-                                          <span style="width: <?= $akurasi_mfep; ?>%;" class="progress-bar progress-bar-success green-sharp">
-                                          <span class="sr-only">78% akurasi</span>
-                                          </span>
-                                       </div>
-                                       <div class="status">
-                                          <div class="status-title">
-                                             Akurasi
-                                          </div>
-                                          <div class="status-number">
-                                             <?= $akurasi_mfep; ?> %
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <?php } ?>
-                              <?php if(isset($akurasi_wp)) { ?>
-                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                 <div class="dashboard-stat2">
-                                    <div class="display">
-                                       <div class="number">
-                                          <h3 class="font-red-haze"><?= $akurasi_wp; ?><small class="font-red-haze">%</small></h3>
-                                          <small>Akurasi Weighted Product</small>
-                                       </div>
-                                       <div class="icon">
-                                          <i class="icon-pie-chart"></i>
-                                       </div>
-                                    </div>
-                                    <div class="progress-info">
-                                       <div class="progress">
-                                          <span style="width: <?= $akurasi_wp; ?>%;" class="progress-bar progress-bar-success red-haze">
-                                          <span class="sr-only"><?= $akurasi_wp; ?>% akurasi</span>
-                                          </span>
-                                       </div>
-                                       <div class="status">
-                                          <div class="status-title">
-                                             Akurasi
-                                          </div>
-                                          <div class="status-number">
-                                             <?= $akurasi_wp; ?> %
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <?php } ?>
-                           </div>
                            <table class="table table-striped table-bordered table-hover">
                               <thead>
                                  <th>
@@ -131,22 +69,14 @@
                                         <td><?= $data_calon[$i]; ?></td>
                                         <?php 
                                            if(isset($mfep)){
-                                              $same = "";
-                                              if(strtolower($mfep[$i]["nama"]) == strtolower($data_calon[$i])){
-                                                 $same = 'style="background-color: deepskyblue"';
-                                              }
-                                              echo "<td ".$same.">".$mfep[$i]["nama"]."</td>";
+                                              echo "<td>".$mfep[$i]["nama"]."</td>";
                                            }else{
                                              echo "<td> - </td>";
                                            }
                                         ?>
                                         <?php 
                                            if(isset($wp)){
-                                              $same = "";
-                                              if(strtolower($wp[$i]["nama"]) == strtolower($data_calon[$i])){
-                                                 $same = 'style="background-color: deepskyblue"';
-                                              }
-                                              echo "<td ".$same.">".$wp[$i]["nama"]."</td>";
+                                              echo "<td>".$wp[$i]["nama"]."</td>";
                                            }else{
                                              echo "<td> - </td>";
                                            }
@@ -158,6 +88,11 @@
                                     } 
                                    }
                                  ?>
+                                 <tr style="background-color: aliceblue">
+                                 <td colspan="2"><b>Jumlah Data Yang Sama</b></td>
+                                 <td><b><?= $akurasi_mfep; ?></b></td>
+                                 <td><b><?= $akurasi_wp; ?></b></td>
+                                 </tr>
                               </tbody>
                            </table>
                         </div>
@@ -251,6 +186,14 @@
                         <?php } ?>
                         <input type="submit" name="set" class="btn btn-success" value="Mulai perangkingan">
                         <?php form_close(); ?>
+                        <?php 
+                             if(isset($mfep)){
+                                echo "<a class='btn btn-warning' id='lihat_mfep'> Lihat Perhitungan MFEP</a>";
+                             }
+                             if(isset($wp)){
+                                echo "<a class='btn btn-info' id='lihat_wp'> Lihat Perhitungan WP</a>";
+                             }
+                        ?>
                      </div>
                   </div>
                   <!--END TABS-->
@@ -260,5 +203,163 @@
          </div>
       </div>
    </div>
-   <!-- TBE MFEP -->
+   <!-- MFEP HITUNG MANUAL -->
+   <div class="row margin-top-10" id="mfep_hitung_manual" hidden="">
+      <div class="row">
+         <div class="col-md-12 col-sm-12">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light">
+               <div class="portlet-title tabbable-line">
+                  <div class="caption caption-md">
+                     <i class="icon-globe theme-font-color hide"></i>
+                     <span class="caption-subject theme-font-color bold uppercase">Perhitungan Multi Factor Evaluation Process</span>
+                  </div>
+                 
+               </div>
+               <div class="portlet-body scroll">
+                  <!--BEGIN TABS-->
+                    <div class="well well-lg">
+                       <h4 class="block">Normalisasi Nilai Bobot Faktor (NBF)</h4>
+                            <table class="table table-bordered">
+                                 <thead>
+                                     <th>Kriteria</th>
+                                     <th>Bobot</th>
+                                     <th>Normalisasi</th>
+                                 </thead>
+                                 <tbody>
+                                     <?php 
+                                       foreach ($nbf_mfep as $key => $value) { ?>
+                                         <tr>
+                                            <td><?= $value['kriteria']?></td>
+                                            <td><?= $value['bobot']?></td>
+                                            <td><?= $value['normalisasi']?></td>
+                                        </tr> 
+                                     <?php   }
+                                     ?>
+                                 </tbody>
+                            </table>
+                    </div>
+
+                     <div class="well well-lg">
+                       <h4 class="block">Normalisasi Nilai Bobot Evaluasi (NBE)</h4>
+                           <?php  
+                             foreach ($nbe_mfep as $key => $value) { ?>
+                               <p><b>Nama : <?= $value['nama']?></b></p>
+                                <table class="table table-bordered">
+                                    <thead>
+                                      <th>Kriteria</th>
+                                      <th>NBF</th>
+                                      <th>NEF</th>
+                                      <th>NBE</th>
+                                    </thead>
+                                    <tbody>
+                                 <?php 
+                                    foreach ($value['nbe']['kode_kriteria'] as $key => $kriteria) { ?>     
+                                             <tr>
+                                               <td><?= $kriteria?></td>
+                                               <td><?= $value['nbe']['nbf'][$key]?></td>
+                                               <td><?= $value['nbe']['nef'][$key]?></td>
+                                               <td><?= $value['nbe']['nilai'][$key]?></td>
+                                             </tr>
+                                   <?php  }
+                                 ?>
+                                  </tbody>
+                               </table>
+                           <?php  }
+                           ?>
+                    </div>
+
+                     <div class="well well-lg">
+                       <h4 class="block">Total Bobot Evaluasi (TBE)</h4>
+                            <table class="table table-bordered">
+                                 <thead>
+                                     <th>Nama</th>
+                                     <th>TBE</th>
+                                 </thead>
+                                 <tbody>
+                                     <?php 
+                                       foreach ($nbe_mfep as $key => $value) { ?>
+                                         <tr>
+                                            <td><?= $value['nama']?></td>
+                                            <td><?= $value['tbe']?></td>
+                                        </tr> 
+                                     <?php   }
+                                     ?>
+                                 </tbody>
+                            </table>
+                    </div>
+
+                  <!--END TABS-->
+               </div>
+               <br>
+               <a class="btn btn-danger" id="sembunyikan_mfep">Sembunyikan</a>
+            </div>
+            <!-- END PORTLET-->
+         </div>
+      </div>
+   </div>
+   <!--  MFEP HITUNG MANUAL-->
+    <!-- WP HITUNG MANUAL -->
+   <div class="row margin-top-10" id="wp_hitung_manual" hidden="">
+      <div class="row">
+         <div class="col-md-12 col-sm-12">
+            <!-- BEGIN PORTLET-->
+            <div class="portlet light">
+               <div class="portlet-title tabbable-line">
+                  <div class="caption caption-md">
+                     <i class="icon-globe theme-font-color hide"></i>
+                     <span class="caption-subject theme-font-color bold uppercase">Perhitungan Weighted procces</span>
+                  </div>
+                 
+               </div>
+               <div class="portlet-body scroll">
+                  <!--BEGIN TABS-->
+                    <div class="well well-lg">
+                       
+                    </div>
+                  <!--END TABS-->
+               </div>
+               <br>
+               <a class="btn btn-danger" id="sembunyikan_wp">Sembunyikan</a>
+            </div>
+            <!-- END PORTLET-->
+         </div>
+      </div>
+   </div>
+   <!--  WP HITUNG MANUAL-->
 </div>
+
+<style type="text/css">
+  .scroll{
+      padding: 5px;
+      overflow: scroll;
+      height: 500px;
+      
+      /*script tambahan khusus untuk IE */
+      scrollbar-face-color: #CE7E00; 
+      scrollbar-shadow-color: #FFFFFF; 
+      scrollbar-highlight-color: #6F4709; 
+      scrollbar-3dlight-color: #11111; 
+      scrollbar-darkshadow-color: #6F4709; 
+      scrollbar-track-color: #FFE8C1; 
+      scrollbar-arrow-color: #6F4709;
+    }
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+     $("#lihat_mfep").click(function(){
+        $("#mfep_hitung_manual").fadeIn(500);
+     })
+     $("#sembunyikan_mfep").click(function(){
+        $("#mfep_hitung_manual").fadeOut(500);  
+     })
+      $("#lihat_wp").click(function(){
+        $("#wp_hitung_manual").fadeIn(500);
+     })
+     $("#sembunyikan_wp").click(function(){
+        $("#wp_hitung_manual").fadeOut(500);  
+     })
+  })
+</script>
+
