@@ -29,12 +29,9 @@ class MFEP
         $index_nbe = 0;
         for($i=0;$i<sizeof($data);$i++){
             $this->nbe[$i]["nama"] = $data[$i]["nama"];
-            // var_dump($data[$i]["nama"]);
             for($j=0;$j<sizeof($data[0]["kriteria"]["nama"]);$j++){
                $kriteria_calon = $data[$i]["kriteria"]["nama"][$j];
                $bobot_kriteria = $data[$i]["faktor"]["bobot"][$j];
-               // var_dump($data[$i]["kriteria"]["nama"][$j]);
-               // var_dump($data[$i]["faktor"]["bobot"][$j]);
                 foreach ($this->nbf as $key_nbf => $value_nbf) {
                    $kriteria    = $value_nbf["kriteria"];
                    $normalisasi = $value_nbf["normalisasi"];
@@ -45,7 +42,6 @@ class MFEP
                    }   
               }
             }
-            // var_dump("\n");
         }
 	}
 
@@ -62,7 +58,6 @@ class MFEP
 		}
 
 		array_multisort($sort,SORT_DESC,$this->nbe);
-		// print_r($this->nbe);
 	}
 
 }
