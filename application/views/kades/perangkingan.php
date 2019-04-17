@@ -48,9 +48,6 @@
                            <table class="table table-striped table-bordered table-hover">
                               <thead>
                                  <th>
-                                    Rangking
-                                 </th>
-                                 <th>
                                     Kepala Desa
                                  </th>
                                  <th>
@@ -65,7 +62,6 @@
                                    for($i=0;$i<$data_size;$i++){
                                    ?>
                                      <tr>
-                                        <td><?= ($i+1)?></td>
                                         <td><?= $data_calon[$i]; ?></td>
                                         <?php 
                                            if(isset($mfep)){
@@ -89,7 +85,7 @@
                                    }
                                  ?>
                                  <tr style="background-color: aliceblue">
-                                 <td colspan="2"><b>Jumlah Data Yang Sama</b></td>
+                                 <td><b>Jumlah Data Yang Sama</b></td>
                                  <td><b><?= $akurasi_mfep; ?></b></td>
                                  <td><b><?= $akurasi_wp; ?></b></td>
                                  </tr>
@@ -241,7 +237,7 @@
                     </div>
 
                      <div class="well well-lg">
-                       <h4 class="block">Normalisasi Nilai Bobot Evaluasi (NBE)</h4>
+                       <h4 class="block">Nilai Bobot Evaluasi (NBE)</h4>
                            <?php  
                              foreach ($nbe_mfep as $key => $value) { ?>
                                <p><b>Nama : <?= $value['nama']?></b></p>
