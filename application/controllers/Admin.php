@@ -23,6 +23,100 @@ class Admin extends MY_Controller
 		$this->template($this->data, $this->module);
 	}
 
+	public function data_kades()
+	{
+		$this->load->model('Pengguna');
+		$this->data['kades']	= Pengguna::where('id_role', 2)->get();
+		$this->data['title']	= 'Data Kepala Desa';
+		$this->data['content']	= 'data_kades';
+		$this->template($this->data, $this->module);
+	}
+
+	public function ganti_password_kades()
+	{
+		$this->data['id_pengguna'] = $this->uri->segment(3);
+		$this->check_allowance(!isset($this->data['id_pengguna']));
+
+		$this->load->model('Pengguna');
+		$this->data['kades']	= Pengguna::find($this->data['id_pengguna']);
+		$this->check_allowance(!isset($this->data['kades']), ['Data kepala desa dengan ID ' . $this->data['id_pengguna'] . ' tidak ditemukan', 'danger']);
+
+		if ($this->POST('submit'))
+		{
+			$oldPassword 		= $this->POST('old_password');
+			$checkOldPassword 	= Pengguna::where('id_pengguna', $this->data['kades']->id_pengguna)
+									->where('password', md5($oldPassword))
+									->first();
+
+			if (isset($checkOldPassword))
+			{
+				$newPassword 	= $this->POST('new_password');
+				$rnewPassword	= $this->POST('rnew_password');
+
+				if ($newPassword === $rnewPassword)
+				{
+					$checkOldPassword->password = md5($newPassword);
+					$checkOldPassword->save();
+					$this->flashmsg('Password berhasil diubah');
+				}
+				else
+				{
+					$this->flashmsg('Password Baru harus sama dengan kolom Konfirmasi Password Baru', 'danger');
+				}
+			}
+			else
+			{
+				$this->flashmsg('Password lama yang anda masukkan salah', 'danger');
+			}
+
+			redirect('admin/ganti-password-kades/' . $this->data['id_pengguna']);
+		}
+
+		$this->data['title']	= 'Ganti Password Kepala Desa';
+		$this->data['content']	= 'ganti_password_kades';
+		$this->template($this->data, $this->module);
+	}
+
+	public function ganti_password()
+	{
+		if ($this->POST('submit'))
+		{
+			$oldPassword = $this->POST('old_password');
+			$this->load->model('Pengguna');
+
+			$checkOldPassword = Pengguna::where('id_pengguna', $this->data['id_pengguna'])
+									->where('password', md5($oldPassword))
+									->first();
+
+			if (isset($checkOldPassword))
+			{
+				$newPassword 	= $this->POST('new_password');
+				$rnewPassword	= $this->POST('rnew_password');
+
+				if ($newPassword === $rnewPassword)
+				{
+					$checkOldPassword->password = md5($newPassword);
+					$checkOldPassword->save();
+					$this->flashmsg('Password berhasil diubah');
+				}
+				else
+				{
+					$this->flashmsg('Password Baru harus sama dengan kolom Konfirmasi Password Baru', 'danger');
+				}
+			}
+			else
+			{
+				$this->flashmsg('Password lama yang anda masukkan salah', 'danger');
+			}
+
+			redirect('admin/ganti-password');
+		}
+
+		$this->data['title']	= 'Ganti Password';
+		$this->data['content']	= 'ganti_password';
+		$this->template($this->data, $this->module);
+	}
+
 	public function edit_data_calon()
 	{
 		$this->data['id_calon']	= $this->GET('id');

@@ -23,10 +23,16 @@
                         <span class="title">Kriteria</span>
                     </a>
                 </li>
-                  <li>
+                <li>
                     <a href="<?= base_url('admin/data-calon-penerima-bantuan2') ?>">
                         <i class="fa fa-list"></i> 
                         <span class="title">Data Calon Penerima Bantuan</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= base_url('admin/data-kades') ?>">
+                        <i class="fa fa-users"></i> 
+                        <span class="title">Data Kepala Desa</span>
                     </a>
                 </li>
                  <!-- <li>

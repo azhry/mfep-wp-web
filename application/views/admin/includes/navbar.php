@@ -32,8 +32,14 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
+                                <a href="<?= base_url('admin/ganti-password') ?>">
+                                    <i class="icon-key"></i> Ganti Password
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
                                 <a href="<?= base_url('logout') ?>">
-                                <i class="icon-key"></i> Log Out </a>
+                                <i class="fa fa-sign-out"></i> Log Out </a>
                             </li>
                         </ul>
                     </li>
