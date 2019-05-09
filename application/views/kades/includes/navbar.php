@@ -5,7 +5,7 @@
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="<?= base_url('pemilik') ?>">
-                <img src="<?= base_url('assets/metronic') ?>/assets/admin/layout4/img/logo-light.png" alt="logo" class="logo-default"/>
+                <h3>Tanjung Muning</h3>
             </a>
             <div class="menu-toggler sidebar-toggler">
                 <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
